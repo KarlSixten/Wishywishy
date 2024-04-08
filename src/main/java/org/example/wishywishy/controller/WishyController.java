@@ -14,7 +14,7 @@ import java.io.IOException;
 public class WishyController {
     private final WishyService wishyService;
 
-    public WishyController(WishyService wishyService, ApplicationArguments springApplicationArguments, WishyWishyApplication wishyWishyApplication) {
+    public WishyController(WishyService wishyService) {
         this.wishyService = wishyService;
     }
 
