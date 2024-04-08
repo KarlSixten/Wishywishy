@@ -5,13 +5,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class WishyRepository {
-    /*
     @Value("${spring.datasource.url}")
     private String url;
     @Value("${spring.datasource.username}")
     private String user;
     @Value("${spring.datasource.password}")
     private String password;
-
-     */
 }
