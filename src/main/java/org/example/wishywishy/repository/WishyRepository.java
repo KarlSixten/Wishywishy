@@ -73,6 +73,26 @@ public class WishyRepository {
         }
     }
 
+
+    public void addWish(Wish wish, int wishListID){
+        String SQL = "INSERT INTO WISH(WISHNAME,WISHPRICE,URL,WHISHLISTID) values(?,?,?,?)";
+        Connection con = ConnectionManager.getConnection(url,user,password);
+        try { PreparedStatement preparedStatement = con.prepareStatement(SQL);
+            preparedStatement.setString(1,wish.getWishName());
+            preparedStatement.setDouble(2,wish.getWishPrice());
+            preparedStatement.setURL(3,wish.getUrl());
+            preparedStatement.setInt(4,wishListID);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+    }
+
+
+
+
+
     public Wish findWish(int wishID) {
         Wish wish = null;
         String sql = "SELECT * FROM wish" +
@@ -87,6 +107,7 @@ public class WishyRepository {
                 double WISHPRICE = rs.getDouble("wishPrice");
                 URL URL = rs.getURL("url");
                 wish = new Wish(WISHNAME, WISHPRICE, URL, WISHID);
+
 
             }
             return wish;

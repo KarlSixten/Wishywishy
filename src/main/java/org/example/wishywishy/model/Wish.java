@@ -8,7 +8,11 @@ public class Wish {
     private URL url;
     private int wishID;
 
+
+    public Wish(String wishName, double wishPrice, URL url) {
+
     public Wish(String wishName, double wishPrice, URL url, int wishID) {
+
         this.wishName = wishName;
         this.wishPrice = wishPrice;
         this.url = url;
