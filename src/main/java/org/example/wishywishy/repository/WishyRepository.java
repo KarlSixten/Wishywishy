@@ -1,6 +1,5 @@
 package org.example.wishywishy.repository;
 
-=======
 import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.model.Wishlist;
 
@@ -47,7 +46,7 @@ public class WishyRepository {
         }
         else return null;
     }
-=======
+
 public void deleteWish (int wishId) throws SQLException {
 String sqlDeleteWish = "DELETE FROM wish WHERE wishID = ?;";
 
@@ -60,7 +59,7 @@ pstmtWish.setInt(1,wishId);
 pstmtWish.executeUpdate();
 }
 }
-=======
+
     public void addWishList(Wishlist wishlist,String username){
         String SQL= "INSERT INTO WISHLIST(USERNAME,WISHLISTNAME) values(?,?)";
         Connection con = ConnectionManager.getConnection(url,user,password);
@@ -75,7 +74,7 @@ pstmtWish.executeUpdate();
     }
 
 
-=======
+
 
 
 
