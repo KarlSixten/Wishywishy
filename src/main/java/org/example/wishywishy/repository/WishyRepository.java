@@ -1,7 +1,9 @@
 package org.example.wishywishy.repository;
 
+=======
 import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.model.Wishlist;
+
 import org.example.wishywishy.repository.util.ConnectionManager;
 import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.repository.util.ConnectionManager;
@@ -20,6 +22,7 @@ public class WishyRepository {
     private String user;
     @Value("${spring.datasource.password}")
     private String password;
+
 
     public Wish updateWish(Wish updatedWish) {
         int rows = 0;
@@ -44,7 +47,20 @@ public class WishyRepository {
         }
         else return null;
     }
+=======
+public void deleteWish (int wishId) throws SQLException {
+String sqlDeleteWish = "DELETE FROM wish WHERE wishID = ?;";
 
+    Connection connection = ConnectionManager.getConnection(url, user, password);
+
+
+
+try (PreparedStatement pstmtWish = connection.prepareStatement(sqlDeleteWish)){
+pstmtWish.setInt(1,wishId);
+pstmtWish.executeUpdate();
+}
+}
+=======
     public void addWishList(Wishlist wishlist,String username){
         String SQL= "INSERT INTO WISHLIST(USERNAME,WISHLISTNAME) values(?,?)";
         Connection con = ConnectionManager.getConnection(url,user,password);
@@ -57,5 +73,10 @@ public class WishyRepository {
             sqlException.printStackTrace();
         }
     }
+
+
+=======
+
+
 
 }
