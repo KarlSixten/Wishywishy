@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class WishyRepository {
@@ -115,6 +114,29 @@ public class WishyRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Wish> findAllWishesInWishlist(int wishlistID){
+        List<Wish> wishList = new ArrayList<>();
+        String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
+
+        Connection con = ConnectionManager.getConnection(url, user, password);
+        try(PreparedStatement psmt = con.prepareStatement(SQL)){
+            psmt.setInt(1, wishlistID);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                int WISHID = rs.getInt("wishId");
+                String WISHNAME = rs.getString("wishName");
+                URL URL = rs.getURL("URL");
+                double WISHPRICE = rs.getDouble("wishPrice");
+                wishList.add(new Wish(WISHNAME, WISHPRICE, URL, WISHID));
+            }
+            return wishList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 
