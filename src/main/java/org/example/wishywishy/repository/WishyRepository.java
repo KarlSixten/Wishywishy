@@ -24,7 +24,7 @@ public class WishyRepository {
                 "WISHNAME = ?, " +
                 "URL = ?, " +
                 "WISHPRICE = ? " +
-                "AND WISHID = ?;";
+                "WHERE WISHID = ?;";
         Connection con = ConnectionManager.getConnection(url, user, password);
         try (PreparedStatement updateWishStmt = con.prepareStatement(SQLUPDATE)){
             updateWishStmt.setString(1, updatedWish.getWishName());
