@@ -9,6 +9,7 @@ import org.example.wishywishy.repository.WishyRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class WishyService {
@@ -38,4 +39,7 @@ public class WishyService {
         return wishyRepository.updateWish(updatedWish);
     }
 
+    public List<Wish> findAllWishesInWishlist(){
+
+    }
 }
