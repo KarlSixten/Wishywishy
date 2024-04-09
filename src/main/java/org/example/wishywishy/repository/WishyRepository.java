@@ -11,4 +11,8 @@ public class WishyRepository {
     private String user;
     @Value("${spring.datasource.password}")
     private String password;
+
+
+
+
 }
