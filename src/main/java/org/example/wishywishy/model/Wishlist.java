@@ -1,37 +1,29 @@
 package org.example.wishywishy.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Wishlist {
+    private int wishlistID;
     private String username;
     private String wishlistName;
+    private List<Wish> wishList = new ArrayList<>();
 
-    private int wishListID;
-
-    public Wishlist(String username, String wishlistName){
+    public Wishlist(int wishlistID, String username, String wishlistName) {
+        this.wishlistID = wishlistID;
         this.username = username;
         this.wishlistName = wishlistName;
+    }
+
+    public int getWishlistID() {
+        return wishlistID;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getWishlistName() {
         return wishlistName;
-    }
-
-    public void setWishlistName(String wishlistName) {
-        this.wishlistName = wishlistName;
-    }
-
-    public int getWishListID() {
-        return wishListID;
-    }
-
-    public void setWishListID(int wishListID) {
-        this.wishListID = wishListID;
     }
 }

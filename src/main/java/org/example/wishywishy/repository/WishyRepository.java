@@ -1,6 +1,9 @@
 package org.example.wishywishy.repository;
 
 import org.example.wishywishy.model.Wish;
+import org.example.wishywishy.model.Wishlist;
+import org.example.wishywishy.repository.util.ConnectionManager;
+import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.repository.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -33,6 +36,19 @@ public class WishyRepository {
             updateWishStmt.setInt(4,updatedWish.getWishID());
             rows = updateWishStmt.executeUpdate();
             System.out.println("Rows: " + rows);
+
+    public void addWishList(Wishlist wishlist,String username){
+        String SQL= "INSERT INTO WISHLIST(USERNAME,WISHLISTNAME) values(?,?)";
+        Connection con = ConnectionManager.getConnection(url,user,password);
+        try { PreparedStatement preparedStatement = con.prepareStatement(SQL);
+                preparedStatement.setString(1,username);
+                preparedStatement.setString(2,wishlist.getWishlistName());
+                preparedStatement.executeUpdate();
+            }
+        catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+    }
 
         } catch(SQLException e){
             throw new RuntimeException();
