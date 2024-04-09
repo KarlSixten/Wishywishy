@@ -1,7 +1,10 @@
 package org.example.wishywishy.service;
 
 import org.example.wishywishy.model.Wish;
+
 import org.example.wishywishy.model.Wishlist;
+
+
 import org.example.wishywishy.repository.WishyRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ public class WishyService {
         this.wishyRepository = wishyRepository;
     }
 
+
 public void deleteWish(int wishId) throws SQLException {
     wishyRepository.deleteWish(wishId);
 }
@@ -24,5 +28,17 @@ public void addWishList(Wishlist wishlist, String username){
 public void addWish(Wish wish, int wishListID){
         wishyRepository.addWish(wish,wishListID);
 }
+
+    public void deleteWish(int wishId) throws SQLException {
+        wishyRepository.deleteWish(wishId);
+    }
+
+    public Wish findWish(int wishID) {
+        return wishyRepository.findWish(wishID);
+    }
+
+    public Wish updateWish(Wish updatedWish) {
+        return wishyRepository.updateWish(updatedWish);
+    }
 
 }
