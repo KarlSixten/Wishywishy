@@ -26,4 +26,24 @@ public class Wishlist {
     public String getWishlistName() {
         return wishlistName;
     }
+
+    public List<Wish> getWishList() {
+        return wishList;
+    }
+
+    public void setWishlistID(int wishlistID) {
+        this.wishlistID = wishlistID;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setWishlistName(String wishlistName) {
+        this.wishlistName = wishlistName;
+    }
+
+    public void setWishList(List<Wish> wishList) {
+        this.wishList = wishList;
+    }
 }

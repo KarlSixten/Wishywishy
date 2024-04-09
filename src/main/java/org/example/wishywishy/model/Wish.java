@@ -7,7 +7,6 @@ public class Wish {
     private String WishDescription;
     private double wishPrice;
     private URL url;
-
     private int wishID;
 
     public Wish(String wishName, String wishDescription, double wishPrice, URL url) {

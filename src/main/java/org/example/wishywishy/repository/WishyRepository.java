@@ -36,6 +36,14 @@ public class WishyRepository {
             updateWishStmt.setInt(4,updatedWish.getWishID());
             rows = updateWishStmt.executeUpdate();
             System.out.println("Rows: " + rows);
+        } catch(SQLException e){
+            throw new RuntimeException();
+        }
+        if (rows == 1) {
+            return updatedWish;
+        }
+        else return null;
+    }
 
     public void addWishList(Wishlist wishlist,String username){
         String SQL= "INSERT INTO WISHLIST(USERNAME,WISHLISTNAME) values(?,?)";
@@ -48,15 +56,6 @@ public class WishyRepository {
         catch (SQLException sqlException){
             sqlException.printStackTrace();
         }
-    }
-
-        } catch(SQLException e){
-            throw new RuntimeException();
-        }
-        if (rows == 1) {
-            return updatedWish;
-        }
-        else return null;
     }
 
 }
