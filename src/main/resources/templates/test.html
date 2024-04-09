@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Add to Wishlist</title>
     <meta charset="UTF-8">
-    <title>TEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-TEST
+
+<div class="container mt-5">
+    <h2>Add to Wishlist</h2>
+    <form th:action="@{/addWishList}" th:object="${wishList}" method="post">
+        <div class="form-group">
+            <label for="wishlistID">Wishlist ID</label>
+            <input type="text" class="form-control" id="wishlistID" th:field="*{wishlistID}" placeholder="Enter Wishlist ID">
+        </div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label for="wishlistName">Wishlist Name</label>
+            <input type="text" class="form-control" id="wishlistName" th:field="*{wishlistName}" placeholder="Wishlist Name">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 </body>
 </html>
