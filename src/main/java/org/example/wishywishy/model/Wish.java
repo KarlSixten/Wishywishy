@@ -15,6 +15,9 @@ public class Wish {
         this.url = url;
         this.wishID = wishID;
     }
+    public Wish(){
+
+    }
 
     public String getWishName() {
         return wishName;

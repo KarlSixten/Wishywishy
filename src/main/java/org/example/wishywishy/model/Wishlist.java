@@ -7,12 +7,13 @@ public class Wishlist {
     private int wishlistID;
     private String username;
     private String wishlistName;
-    private List<Wish> wishList = new ArrayList<>();
 
     public Wishlist(int wishlistID, String username, String wishlistName) {
         this.wishlistID = wishlistID;
         this.username = username;
         this.wishlistName = wishlistName;
+    }
+    public Wishlist(){
     }
 
     public int getWishlistID() {
@@ -27,10 +28,6 @@ public class Wishlist {
         return wishlistName;
     }
 
-    public List<Wish> getWishList() {
-        return wishList;
-    }
-
     public void setWishlistID(int wishlistID) {
         this.wishlistID = wishlistID;
     }
@@ -43,7 +40,4 @@ public class Wishlist {
         this.wishlistName = wishlistName;
     }
 
-    public void setWishList(List<Wish> wishList) {
-        this.wishList = wishList;
-    }
 }
