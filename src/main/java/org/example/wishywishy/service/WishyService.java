@@ -18,10 +18,6 @@ public class WishyService {
         this.wishyRepository = wishyRepository;
     }
 
-
-public void deleteWish(int wishId) throws SQLException {
-    wishyRepository.deleteWish(wishId);
-}
 public void addWishList(Wishlist wishlist, String username){
     wishyRepository.addWishList(wishlist, username);
 }
