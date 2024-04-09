@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("")
@@ -24,8 +25,10 @@ public class WishyController {
     }
 
    @GetMapping("{name}/delete")
-    public String deleteWish(@PathVariable("name") int wishId){
+    public String deleteWish(@PathVariable("name") int wishId) throws SQLException {
         Wish wishToDelete = wishyService.findWish(wishId);
-        return "test";
+        int wishID = wishToDelete.getWishID();
+        wishyService.deleteWish(wishID);
+        return "redirect:/test";
     }
 }

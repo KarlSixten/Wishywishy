@@ -39,7 +39,7 @@ public class WishyService {
         return wishyRepository.updateWish(updatedWish);
     }
 
-    public List<Wish> findAllWishesInWishlist(){
-
+    public List<Wish> findAllWishesInWishlist(int wishListID){
+        return wishyRepository.findAllWishesInWishlist(wishListID);
     }
 }
