@@ -23,8 +23,9 @@ public class WishyController {
         return "test";
     }
 
- /*   @GetMapping("{name}/delete")
-    public String deleteWish(@PathVariable("name") String name){
-        Wish wishToDelete =
-    }*/
+   @GetMapping("{name}/delete")
+    public String deleteWish(@PathVariable("name") int wishId){
+        Wish wishToDelete = wishyService.findWish(wishId);
+        return "test";
+    }
 }
