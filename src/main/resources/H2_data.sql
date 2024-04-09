@@ -5,7 +5,7 @@ USE wishywishy;
 CREATE TABLE users
 (
     username VARCHAR(45) NOT NULL PRIMARY KEY,
-    passcode VARCHAR(45) NOT NULL
+    password VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE wishlist

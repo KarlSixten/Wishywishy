@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+    <body>
+    <h1>LOGIN</h1>
+        <form action="/login/submit" th:objects="${user}" method="post">
+            <div class="form-group">
+                <label>Brugernavn</label>
+                <input type="text" name="name" th:field="*{user.username}" style="width: 200px;" required/>
+            </div>
+            <div class="form-group">
+                <label>Adgangskode</label>
+                <input type="password" name="password" th:field="*{user.password}" required/>
+            </div>
+            <p th:if="${param.error}" style="color: red">Forkert brugernavn eller adgangskode!</p>
+            <button type="submit">Login</button>
+        </form>
+        <a href="login/createuser"><button>Opret ny bruger</button></a>
+    </body>
+</html>
