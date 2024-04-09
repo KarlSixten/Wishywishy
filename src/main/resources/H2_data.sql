@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS wishywishy;
-CREATE DATABASE wishywishy;
+DROP SCHEMA IF EXISTS wishywishy;
+CREATE SCHEMA wishywishy;
 USE wishywishy;
 
 CREATE TABLE users
