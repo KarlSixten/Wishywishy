@@ -4,14 +4,51 @@ import java.net.URL;
 
 public class Wish {
     private String wishName;
-    private String WishDescription;
     private double wishPrice;
     private URL url;
+    private int wishID;
 
-    public Wish(String wishName, String wishDescription, double wishPrice, URL url) {
+    public Wish(String wishName, double wishPrice, URL url, int wishID) {
+
         this.wishName = wishName;
-        WishDescription = wishDescription;
         this.wishPrice = wishPrice;
         this.url = url;
+        this.wishID = wishID;
+    }
+    public Wish(){
+
+    }
+
+    public String getWishName() {
+        return wishName;
+    }
+
+    public void setWishName(String wishName) {
+        this.wishName = wishName;
+    }
+
+
+    public double getWishPrice() {
+        return wishPrice;
+    }
+
+    public void setWishPrice(double wishPrice) {
+        this.wishPrice = wishPrice;
+    }
+
+    public URL getUrl() {
+        return url;
+    }
+
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+
+    public int getWishID() {
+        return wishID;
+    }
+
+    public void setWishID(int wishID) {
+        this.wishID = wishID;
     }
 }
