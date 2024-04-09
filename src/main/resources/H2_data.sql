@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS wishywishy;
-CREATE DATABASE wishywishy;
+DROP SCHEMA IF EXISTS wishywishy;
+CREATE SCHEMA wishywishy;
 USE wishywishy;
 
 CREATE TABLE users
 (
     username VARCHAR(45) NOT NULL PRIMARY KEY,
-    passcode VARCHAR(45) NOT NULL
+    password VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE wishlist

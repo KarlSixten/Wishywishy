@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create user</title>
+</head>
+    <body>
+    <h1>OPRET NY BRUGER</h1>
+        <form action="/login/createuser/save" th:objects="${user}" method="post">
+            <div class="form-group">
+                <label>Brugernavn</label>
+                <input type="text" name="name" th:field="*{user.username}" style="width: 200px;" required/>
+            </div>
+            <div class="form-group">
+                <label>Adgangskode</label>
+                <input type="password" name="password" th:field="*{user.password}" required/>
+            </div>
+            <p th:if="${param.error}" style="color: red">Brugernavn allerede i brug!</p>
+            <button type="submit">Opret!</button>
+        </form>
+    <a href="/login"><button>Tilbage</button></a>
+    </body>
+</html>
