@@ -4,16 +4,15 @@ import java.net.URL;
 
 public class Wish {
     private String wishName;
-    private String WishDescription;
     private double wishPrice;
     private URL url;
     private int wishID;
 
-    public Wish(String wishName, String wishDescription, double wishPrice, URL url) {
+    public Wish(String wishName, double wishPrice, URL url, int wishID) {
         this.wishName = wishName;
-        WishDescription = wishDescription;
         this.wishPrice = wishPrice;
         this.url = url;
+        this.wishID = wishID;
     }
 
     public String getWishName() {
@@ -24,13 +23,6 @@ public class Wish {
         this.wishName = wishName;
     }
 
-    public String getWishDescription() {
-        return WishDescription;
-    }
-
-    public void setWishDescription(String wishDescription) {
-        WishDescription = wishDescription;
-    }
 
     public double getWishPrice() {
         return wishPrice;
