@@ -12,6 +12,7 @@
         <th>Wishlist ID</th>
         <th>Username</th>
         <th>Wishlist Name</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +20,11 @@
         <td th:text="${wishlist.wishlistID}">Wishlist ID</td>
         <td th:text="${wishlist.username}">Username</td>
         <td th:text="${wishlist.wishlistName}">Wishlist Name</td>
+        <td>
+            <form th:action="@{'/see-wishlist/' + ${wishlist.username} + '/' + ${wishlist.wishlistID}}" method="get">
+                <button type="submit">View Wishes</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

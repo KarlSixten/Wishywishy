@@ -11,6 +11,7 @@ import org.example.wishywishy.repository.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.net.MalformedURLException;
 import java.sql.*;
 
 import java.net.URL;
@@ -138,23 +139,23 @@ public class WishyRepository {
         }
     }
 
-    public List<Wish> findAllWishesInWishlist(Wishlist wishlist){
+    public List<Wish> findAllWishesInWishlist(int wishlistID){
         List<Wish> wishList = new ArrayList<>();
         String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
 
         Connection con = ConnectionManager.getConnection(url, user, password);
         try(PreparedStatement psmt = con.prepareStatement(SQL)){
-            psmt.setInt(1, wishlist.getWishlistID());
+            psmt.setInt(1, wishlistID);
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
-                URL URL = rs.getURL("URL");
+                String url = rs.getString("URL");
                 double WISHPRICE = rs.getDouble("wishPrice");
-                wishList.add(new Wish(WISHNAME, WISHPRICE, URL, WISHID));
+                wishList.add(new Wish(WISHNAME, WISHPRICE, new URL("http://" + url), WISHID));
             }
             return wishList;
-        } catch (SQLException e) {
+        } catch (SQLException | MalformedURLException e) {
             throw new RuntimeException(e);
         }
 
