@@ -7,12 +7,7 @@ import org.example.wishywishy.service.WishyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -23,6 +18,7 @@ public class WishyController {
         this.wishyService = wishyService;
     }
 
+    User userLoggedIn;
 
     @GetMapping("test")
     public String getTest() {
@@ -31,6 +27,7 @@ public class WishyController {
 
     @GetMapping("login")
     public String getLogin(Model model, @RequestParam(name = "error", required = false) String error) {
+        userLoggedIn = null;
         model.addAttribute("user", new User());
         if (error != null) {
             model.addAttribute("error");
@@ -41,7 +38,7 @@ public class WishyController {
     @PostMapping("login/submit")
     public String getSubmitLogin(@ModelAttribute User user) {
         if (wishyService.checkIfLoginValid(user) != null) {
-
+            userLoggedIn = user;
             return "redirect:/user-front-page/" + user.getUsername();
         } else {
             return "redirect:/login?error";
@@ -95,6 +92,7 @@ public class WishyController {
     }
     @GetMapping("user-front-page/{username}")
     public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
+        model.addAttribute("userLoggedIn", userLoggedIn);
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
         return "user-front-page";
     }
