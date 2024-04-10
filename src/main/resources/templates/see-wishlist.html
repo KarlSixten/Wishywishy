@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>See Wishlist</title>
 </head>
 <body>
-
+<h1>Wishlist Details</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Wish ID</th>
+        <th>Wish Name</th>
+        <th>URL</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wish : ${wishlist}">
+        <td th:text="${wish.wishID}">Wish ID</td>
+        <td th:text="${wish.wishName}">Wish Name</td>
+        <td>
+            <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
+        </td>
+        <td th:text="${wish.wishPrice}">Price</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

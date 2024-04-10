@@ -48,8 +48,8 @@ public class WishyService {
         return wishyRepository.updateWish(updatedWish);
     }
 
-    public List<Wish> findAllWishesInWishlist(Wishlist wishlist){
-        return wishyRepository.findAllWishesInWishlist(wishlist);
+    public List<Wish> findAllWishesInWishlist(int wishlistID){
+        return wishyRepository.findAllWishesInWishlist(wishlistID);
     }
     public List <Wishlist> getAllWishlistsFromUser(String username){
         return wishyRepository.getAllWishlistsFromUser(username);
