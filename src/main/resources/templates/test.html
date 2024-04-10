@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add to Wishlist</title>
+    <title>Name your Wishlist</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,12 +10,8 @@
 <body>
 
 <div class="container mt-5">
-    <h2>Add to Wishlist</h2>
+    <h2>Name your Wishlist</h2>
     <form th:action="@{/addWishList}" th:object="${wishList}" method="post">
-        <div class="form-group">
-            <label for="wishlistID">Wishlist ID</label>
-            <input type="text" class="form-control" id="wishlistID" th:field="*{wishlistID}" placeholder="Enter Wishlist ID">
-        </div>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Enter Username">
