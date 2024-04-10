@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>See Wishlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <style>
     .footer {
@@ -22,6 +23,7 @@
         <th>Wish Name</th>
         <th>URL</th>
         <th>Price</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -32,15 +34,15 @@
             <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
         </td>
         <td th:text="${wish.wishPrice}">Price</td>
+        <td>
+            <a th:href="@{'/deleteWish/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID}}" class="btn btn-danger">Delete</a>
+        </td>
     </tr>
-
     </tbody>
 </table>
-<div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 <form th:action="@{'/addWish/' + ${username} + '/' + ${wishlistid}}" method="get">
     <button class="btn btn-info" type="submit">Tilføj ønske</button>
 </form>
-
 
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>
