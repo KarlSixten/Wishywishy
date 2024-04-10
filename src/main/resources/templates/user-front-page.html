@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>User Front Page</title>
 </head>
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        background-color: #f8f9fa;
+    }
+</style>
 <body>
 <h1>User Front Page</h1>
 <table>
@@ -28,9 +37,9 @@
     </tr>
     </tbody>
 </table>
-<div th:if="${userLoggedIn != null} and ${userLoggedIn.getUsername() == username}">
-<a href="/addWishList"> Opret ny ønskelist<a/>
-    <a href="/login"> logout<a/>
+<div th:if="${session.user != null} and ${session.user.username == username}">
+<a href="/addWishList"> Opret ny ønskelist</a>
 </div>
+    <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>
 </html>
