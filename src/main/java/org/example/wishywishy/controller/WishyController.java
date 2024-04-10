@@ -22,6 +22,7 @@ public class WishyController {
         this.wishyService = wishyService;
     }
 
+
     @GetMapping("test")
     public String getTest() {
         return "test";
@@ -39,7 +40,8 @@ public class WishyController {
     @PostMapping("login/submit")
     public String getSubmitLogin(@ModelAttribute User user) {
         if (wishyService.checkIfLoginValid(user) != null) {
-            return "loginsuccess";
+
+            return "redirect:/user-front-page/" + user.getUsername();
         } else {
             return "redirect:/login?error";
         }
@@ -65,7 +67,7 @@ public class WishyController {
     @GetMapping("addWishList")
     public String addWishList(Model model){
         model.addAttribute("wishList", new Wishlist());
-        return "test";
+        return "add-wishlist";
     }
     @GetMapping("addWish")
     public String addWish(Model model){
@@ -75,7 +77,7 @@ public class WishyController {
     @PostMapping("addWishList")
     public String addWishList(@ModelAttribute Wishlist wishlist, String username){
         wishyService.addWishList(wishlist,username);
-        return "test";
+        return "redirect:/user-front-page/" + username;
     }
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, int wishListID){

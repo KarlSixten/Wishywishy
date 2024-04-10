@@ -138,13 +138,13 @@ public class WishyRepository {
         }
     }
 
-    public List<Wish> findAllWishesInWishlist(int wishlistID){
+    public List<Wish> findAllWishesInWishlist(Wishlist wishlist){
         List<Wish> wishList = new ArrayList<>();
         String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
 
         Connection con = ConnectionManager.getConnection(url, user, password);
         try(PreparedStatement psmt = con.prepareStatement(SQL)){
-            psmt.setInt(1, wishlistID);
+            psmt.setInt(1, wishlist.getWishlistID());
             ResultSet rs = psmt.executeQuery();
             while(rs.next()){
                 int WISHID = rs.getInt("wishId");
@@ -158,6 +158,25 @@ public class WishyRepository {
             throw new RuntimeException(e);
         }
 
+
+    }
+
+    public List<Wishlist> getAllWishlistsFromUser(String userName){
+        List<Wishlist> wishlists = new ArrayList<>();
+        String SQL = "SELECT * FROM WISHLIST WHERE USERNAME = ?";
+        Connection con = ConnectionManager.getConnection(url, user, password);
+        try (PreparedStatement psmt = con.prepareStatement(SQL)){
+            psmt.setString(1,userName);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                int WISHLISTID = rs.getInt("wishlistid");
+                String WISHLISTNAME = rs.getString("wishlistName");
+                wishlists.add(new Wishlist(WISHLISTID,userName,WISHLISTNAME));
+            }
+        return wishlists;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
