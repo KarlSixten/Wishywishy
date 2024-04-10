@@ -1,5 +1,6 @@
 package org.example.wishywishy.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.wishywishy.model.User;
 import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.model.Wishlist;
@@ -13,9 +14,11 @@ import java.sql.SQLException;
 @RequestMapping("")
 public class WishyController {
     private final WishyService wishyService;
+    private final HttpSession httpSession;
 
-    public WishyController(WishyService wishyService) {
+    public WishyController(WishyService wishyService, HttpSession httpSession) {
         this.wishyService = wishyService;
+        this.httpSession = httpSession;
     }
 
     User userLoggedIn;
@@ -27,7 +30,7 @@ public class WishyController {
 
     @GetMapping("login")
     public String getLogin(Model model, @RequestParam(name = "error", required = false) String error) {
-        userLoggedIn = null;
+        httpSession.invalidate();
         model.addAttribute("user", new User());
         if (error != null) {
             model.addAttribute("error");
@@ -36,9 +39,9 @@ public class WishyController {
     }
 
     @PostMapping("login/submit")
-    public String getSubmitLogin(@ModelAttribute User user) {
+    public String getSubmitLogin(@ModelAttribute User user, HttpSession httpSession) {
         if (wishyService.checkIfLoginValid(user) != null) {
-            userLoggedIn = user;
+            httpSession.setAttribute("user", user);
             return "redirect:/user-front-page/" + user.getUsername();
         } else {
             return "redirect:/login?error";
@@ -74,7 +77,7 @@ public class WishyController {
     }
     @PostMapping("addWishList")
     public String addWishList(@ModelAttribute Wishlist wishlist, String username){
-        wishyService.addWishList(wishlist,username);
+        wishyService.addWishList(wishlist, username);
         return "redirect:/user-front-page/" + username;
     }
     @PostMapping("addWish")
@@ -92,7 +95,6 @@ public class WishyController {
     }
     @GetMapping("user-front-page/{username}")
     public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
-        model.addAttribute("userLoggedIn", userLoggedIn);
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
         return "user-front-page";
     }

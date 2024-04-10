@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>footer</title>
+</head>
+
+<body>
+<div th:fragment="footer">
+    <footer class="footer">
+        <div th:if="${session.user != null}">
+            <a th:text="'Hej ' + ${session.user.username} + '!'"}></a>
+            <a href="/login">Log af.</a>
+        </div>
+        <div th:if="${session.user == null}">
+            <a>Hej gæst!</a>
+            <a href="/login">Log ind.</a>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
