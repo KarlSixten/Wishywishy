@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -21,6 +22,7 @@ public class WishyController {
     public WishyController(WishyService wishyService) {
         this.wishyService = wishyService;
     }
+
 
     @GetMapping("test")
     public String getTest() {
@@ -39,7 +41,8 @@ public class WishyController {
     @PostMapping("login/submit")
     public String getSubmitLogin(@ModelAttribute User user) {
         if (wishyService.checkIfLoginValid(user) != null) {
-            return "loginsuccess";
+
+            return "redirect:/user-front-page/" + user.getUsername();
         } else {
             return "redirect:/login?error";
         }
@@ -65,7 +68,7 @@ public class WishyController {
     @GetMapping("addWishList")
     public String addWishList(Model model){
         model.addAttribute("wishList", new Wishlist());
-        return "test";
+        return "add-wishlist";
     }
     @GetMapping("addWish")
     public String addWish(Model model){
@@ -75,7 +78,7 @@ public class WishyController {
     @PostMapping("addWishList")
     public String addWishList(@ModelAttribute Wishlist wishlist, String username){
         wishyService.addWishList(wishlist,username);
-        return "test";
+        return "redirect:/user-front-page/" + username;
     }
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, int wishListID){
@@ -83,11 +86,16 @@ public class WishyController {
         return "test";
     }
 
-   @GetMapping("{name}/delete")
+   @GetMapping("{wishlistID}/delete")
     public String deleteWish(@PathVariable("name") int wishId) throws SQLException {
         Wish wishToDelete = wishyService.findWish(wishId);
         int wishID = wishToDelete.getWishID();
         wishyService.deleteWish(wishID);
         return "redirect:/test";
+    }
+    @GetMapping("user-front-page/{username}")
+    public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
+        model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
+        return "user-front-page";
     }
 }

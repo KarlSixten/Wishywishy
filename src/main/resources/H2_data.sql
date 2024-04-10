@@ -25,3 +25,11 @@ CREATE TABLE wish
     wishlistId INT,
     FOREIGN KEY (wishlistId) REFERENCES wishlist(wishlistId)
 );
+
+INSERT into users (username, password) values ('gustavSo', 'Diller123');
+INSERT into users (username, password) values (1,1);
+
+insert into wishlist (username, wishlistName) values ('gustavSo', 'liste 1');
+insert into wishlist (username, wishlistName) values ('gustavSo', 'liste 2');
+insert into wish (wishname, URL, wishprice, WISHLISTID) values ('parfume', 'parfume.dk', 300, 1);
+insert into wish (wishname, URL, wishprice, WISHLISTID) values ('parfume', 'parfume.dk', 900, 1);
