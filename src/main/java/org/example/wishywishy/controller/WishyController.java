@@ -70,23 +70,27 @@ public class WishyController {
         model.addAttribute("wishList", new Wishlist());
         return "add-wishlist";
     }
-    @GetMapping("addWish")
-    public String addWish(Model model){
-        model.addAttribute("wish", new Wish());
-        return "test";
-    }
+
     @PostMapping("addWishList")
     public String addWishList(@ModelAttribute Wishlist wishlist, String username){
         wishyService.addWishList(wishlist, username);
         return "redirect:/user-front-page/" + username;
     }
-    @PostMapping("addWish")
-    public String addWish(@ModelAttribute Wish wish, int wishListID){
-        wishyService.addWish(wish,wishListID);
-        return "test";
+
+    @GetMapping("addWish/{username}/{wishlistid}")
+    public String addWish(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model){
+        model.addAttribute("wish", new Wish());
+        return "add-wish";
     }
 
-   @GetMapping("{wishlistID}/delete")
+
+    @PostMapping("addWish")
+    public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
+        wishyService.addWish(wish, wishListID);
+        return "redirect:/see-wishlist/" + username + "/" + wishListID;
+    }
+
+    @GetMapping("{wishlistID}/delete")
     public String deleteWish(@PathVariable("name") int wishId) throws SQLException {
         Wish wishToDelete = wishyService.findWish(wishId);
         int wishID = wishToDelete.getWishID();

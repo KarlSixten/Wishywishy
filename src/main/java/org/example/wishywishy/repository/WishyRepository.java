@@ -97,12 +97,12 @@ public class WishyRepository {
 
 
     public void addWish(Wish wish, int wishListID){
-        String SQL = "INSERT INTO WISH(WISHNAME,WISHPRICE,URL,WHISHLISTID) values(?,?,?,?)";
+        String SQL = "INSERT INTO WISH(WISHNAME,WISHPRICE,URL,WISHLISTID) values(?,?,?,?)";
         Connection con = ConnectionManager.getConnection(url,user,password);
         try { PreparedStatement preparedStatement = con.prepareStatement(SQL);
             preparedStatement.setString(1,wish.getWishName());
             preparedStatement.setDouble(2,wish.getWishPrice());
-            preparedStatement.setURL(3,wish.getUrl());
+            preparedStatement.setString(3,wish.getUrl().toString());
             preparedStatement.setInt(4,wishListID);
             preparedStatement.executeUpdate();
         }
@@ -151,8 +151,11 @@ public class WishyRepository {
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
                 String url = rs.getString("URL");
+                if (!url.startsWith("http")){
+                    url = "http://" + url;
+                }
                 double WISHPRICE = rs.getDouble("wishPrice");
-                wishList.add(new Wish(WISHNAME, WISHPRICE, new URL("http://" + url), WISHID));
+                wishList.add(new Wish(WISHNAME, WISHPRICE, new URL(url), WISHID));
             }
             return wishList;
         } catch (SQLException | MalformedURLException e) {
