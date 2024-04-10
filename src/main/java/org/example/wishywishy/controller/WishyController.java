@@ -57,4 +57,53 @@ public class WishyController {
         return "createuser";
     }
 
+    @PostMapping("login/createuser/save")
+    public String getSaveNewUser(@ModelAttribute User newUser) {
+        if (wishyService.createUser(newUser) != null) {
+            return "redirect:/login";
+        } else {
+            return "redirect:/login/createuser?error";
+        }
+    }
+    @GetMapping("addWishList")
+    public String addWishList(Model model){
+        model.addAttribute("wishList", new Wishlist());
+        return "add-wishlist";
+    }
 
+    @PostMapping("addWishList")
+    public String addWishList(@ModelAttribute Wishlist wishlist, String username){
+        wishyService.addWishList(wishlist, username);
+        return "redirect:/user-front-page/" + username;
+    }
+
+    @GetMapping("addWish/{username}/{wishlistid}")
+    public String addWish(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model){
+        model.addAttribute("wish", new Wish());
+        return "add-wish";
+    }
+
+
+    @PostMapping("addWish")
+    public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
+        wishyService.addWish(wish, wishListID);
+        return "redirect:/see-wishlist/" + username + "/" + wishListID;
+    }
+
+    @GetMapping("/deleteWish/{username}/{wishlistid}/{wishId}")
+    public String deleteWish(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId) throws SQLException {
+        wishyService.deleteWish(wishId);
+        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+    }
+    @GetMapping("user-front-page/{username}")
+    public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
+        model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
+        return "user-front-page";
+    }
+
+    @GetMapping("see-wishlist/{username}/{wishlistid}")
+    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model){
+        model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
+        return "see-wishlist";
+    }
+}
