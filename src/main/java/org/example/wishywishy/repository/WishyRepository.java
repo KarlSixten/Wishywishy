@@ -139,6 +139,99 @@ public class WishyRepository {
         }
     }
 
+    public List<Wish> findAllWishesInWishlist(int wishlistID){
+        List<Wish> wishList = new ArrayList<>();
+        String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
 
+        Connection con = ConnectionManager.getConnection(url, user, password);
+        try(PreparedStatement psmt = con.prepareStatement(SQL)){
+            psmt.setInt(1, wishlistID);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                int WISHID = rs.getInt("wishId");
+                String WISHNAME = rs.getString("wishName");
+                String url = rs.getString("URL");
+                if (!url.startsWith("http")){
+                    url = "http://" + url;
+                }
+                double WISHPRICE = rs.getDouble("wishPrice");
+                wishList.add(new Wish(WISHNAME, WISHPRICE, new URL(url), WISHID));
+            }
+            return wishList;
+        } catch (SQLException | MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public List<Wishlist> getAllWishlistsFromUser(String userName){
+        List<Wishlist> wishlists = new ArrayList<>();
+        String SQL = "SELECT * FROM WISHLIST WHERE USERNAME = ?";
+        Connection con = ConnectionManager.getConnection(url, user, password);
+        try (PreparedStatement psmt = con.prepareStatement(SQL)){
+            psmt.setString(1,userName);
+            ResultSet rs = psmt.executeQuery();
+            while(rs.next()){
+                int WISHLISTID = rs.getInt("wishlistid");
+                String WISHLISTNAME = rs.getString("wishlistName");
+                wishlists.add(new Wishlist(WISHLISTID,userName,WISHLISTNAME));
+            }
+        return wishlists;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean checkUniqueUsername(User userToCheck) {
+        boolean nameIsUnique = false;
+
+        String sql = "SELECT COUNT(*) FROM users WHERE username like (?);";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, userToCheck.getUsername());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("COUNT(*)");
+                nameIsUnique = (count == 0);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return nameIsUnique;
+    }
+
+    public User checkIfLoginValid(User userToCheck) {
+        String sql = "SELECT * FROM users WHERE username LIKE (?) AND password LIKE (?);";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, userToCheck.getUsername());
+            pstmt.setString(2, userToCheck.getPassword());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return userToCheck;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void TESTprintAllUsers() {
+        String sql = "SELECT * FROM users;";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                System.out.println(rs.getString("username") + " " + rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
