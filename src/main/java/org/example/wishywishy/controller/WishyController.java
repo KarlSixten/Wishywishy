@@ -96,4 +96,10 @@ public class WishyController {
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
         return "user-front-page";
     }
+
+    @GetMapping("see-wishlist/{username}/{wishlist}")
+    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlist") Wishlist wishlist, Model model){
+        model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlist));
+        return "see-wishlist";
+    }
 }
