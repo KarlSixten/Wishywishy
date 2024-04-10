@@ -33,8 +33,15 @@
         </td>
         <td th:text="${wish.wishPrice}">Price</td>
     </tr>
+
     </tbody>
 </table>
+<div th:replace="~{fragments/footer :: footer}" class="footer"></div>
+<form th:action="@{'/addWish/' + ${username} + '/' + ${wishlistid}}" method="get">
+    <button class="btn btn-info" type="submit">Tilføj ønske</button>
+</form>
+
+
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>
 </html>

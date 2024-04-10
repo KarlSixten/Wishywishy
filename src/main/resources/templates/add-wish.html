@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<form action="/addWish" th:object="${wish}" method="post">
+    <p>
+        <label>Navn:</label>
+        <input type="text" name="wishName" th:field="*{wishName}" required />
+    </p>
+    <p>
+        <label>Pris:</label>
+        <input type="number" name="wishPrice" min="0" th:field="*{wishPrice}" required />
+    </p>
+    <p>
+        <label>Link:</label>
+        <input type="url" name="url" th:field="*{url}" />
+    </p>
+
+    <!-- Hidden fields for username and wishlistid -->
+    <input type="hidden" name="username" th:value="${username}" />
+    <input type="hidden" name="wishlistid" th:value="${wishlistid}" />
+
+    <input type="submit" value="create" class="btn btn-primary" />
+</form>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
