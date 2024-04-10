@@ -22,7 +22,7 @@
     </tr>
     </tbody>
 </table>
-<div th:if="${userLoggedIn.getUsername() == username}">
+<div th:if="${userLoggedIn != null} and ${userLoggedIn.getUsername() == username}">
 <a href="/addWishList"> Opret ny ønskelist<a/>
     <a href="/login"> logout<a/>
 </div>
