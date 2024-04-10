@@ -51,4 +51,7 @@ public class WishyService {
     public List<Wish> findAllWishesInWishlist(Wishlist wishlist){
         return wishyRepository.findAllWishesInWishlist(wishlist);
     }
+    public List <Wishlist> getAllWishlistsFromUser(String username){
+        return wishyRepository.getAllWishlistsFromUser(username);
+    }
 }

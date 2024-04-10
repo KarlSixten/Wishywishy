@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -85,11 +86,16 @@ public class WishyController {
         return "test";
     }
 
-   @GetMapping("{name}/delete")
+   @GetMapping("{wishlistID}/delete")
     public String deleteWish(@PathVariable("name") int wishId) throws SQLException {
         Wish wishToDelete = wishyService.findWish(wishId);
         int wishID = wishToDelete.getWishID();
         wishyService.deleteWish(wishID);
         return "redirect:/test";
+    }
+    @GetMapping("user-front-page/{username}")
+    public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
+        model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
+        return "user-front-page";
     }
 }
