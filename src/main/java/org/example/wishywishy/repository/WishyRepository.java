@@ -92,7 +92,7 @@ public class WishyRepository {
         }
     }
 
-//    public void deleteWishList(int wishlistID) {
+    //    public void deleteWishList(int wishlistID) {
 //        String SQL = " DELETE FROM WISHLIST WHERE WISHLISTID = ?";
 //
 //        Connection connection = ConnectionManager.getConnection(url, user, password);
@@ -105,18 +105,18 @@ public class WishyRepository {
 //            e.printStackTrace();
 //        }
 //    }
-public void deleteWishList(int wishlistID) {
-    deleteWishesInWishlist(wishlistID);
-    String SQL = "DELETE FROM WISHLIST WHERE WISHLISTID = ?";
-    Connection connection = ConnectionManager.getConnection(url, user, password);
+    public void deleteWishList(int wishlistID) {
+        deleteWishesInWishlist(wishlistID);
+        String SQL = "DELETE FROM WISHLIST WHERE WISHLISTID = ?";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
 
-    try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
-        preparedStatement.setInt(1, wishlistID);
-        preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+            preparedStatement.setInt(1, wishlistID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     private void deleteWishesInWishlist(int wishlistID) {
         String SQL = "DELETE FROM WISH WHERE WISHLISTID = ?";
@@ -129,7 +129,6 @@ public void deleteWishList(int wishlistID) {
             e.printStackTrace();
         }
     }
-
 
 
     public void addWishList(Wishlist wishlist, String username) {
@@ -146,17 +145,17 @@ public void deleteWishList(int wishlistID) {
     }
 
 
-    public void addWish(Wish wish, int wishListID){
+    public void addWish(Wish wish, int wishListID) {
         String SQL = "INSERT INTO WISH(WISHNAME,WISHPRICE,URL,WISHLISTID) values(?,?,?,?)";
-        Connection con = ConnectionManager.getConnection(url,user,password);
-        try { PreparedStatement preparedStatement = con.prepareStatement(SQL);
-            preparedStatement.setString(1,wish.getWishName());
-            preparedStatement.setDouble(2,wish.getWishPrice());
-            preparedStatement.setString(3,addProtocolToURL(wish.getUrl()));
-            preparedStatement.setInt(4,wishListID);
+        Connection con = ConnectionManager.getConnection(url, user, password);
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(SQL);
+            preparedStatement.setString(1, wish.getWishName());
+            preparedStatement.setDouble(2, wish.getWishPrice());
+            preparedStatement.setString(3, addProtocolToURL(wish.getUrl()));
+            preparedStatement.setInt(4, wishListID);
             preparedStatement.executeUpdate();
-        }
-        catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
     }
@@ -174,9 +173,6 @@ public void deleteWishList(int wishlistID) {
     }
 
 
-
-
-
     public Wish findWish(int wishID) {
         Wish wish = null;
         String sql = "SELECT * FROM wish" +
@@ -189,10 +185,11 @@ public void deleteWishList(int wishlistID) {
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
                 double WISHPRICE = rs.getDouble("wishPrice");
+                boolean ISRESERVED = rs.getBoolean("isReserved");
                 String URLString = rs.getString("url");
                 addProtocolToURL(URLString);
 
-                wish = new Wish(WISHNAME, WISHPRICE, URLString, WISHID);
+                wish = new Wish(WISHNAME, WISHPRICE, URLString, WISHID, ISRESERVED);
 
 
             }
@@ -203,20 +200,21 @@ public void deleteWishList(int wishlistID) {
         }
     }
 
-    public List<Wish> findAllWishesInWishlist(int wishlistID){
+    public List<Wish> findAllWishesInWishlist(int wishlistID) {
         List<Wish> wishList = new ArrayList<>();
         String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
         Connection con = ConnectionManager.getConnection(url, user, password);
-        try(PreparedStatement psmt = con.prepareStatement(SQL)){
+        try (PreparedStatement psmt = con.prepareStatement(SQL)) {
             psmt.setInt(1, wishlistID);
             ResultSet rs = psmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
                 double WISHPRICE = rs.getDouble("wishPrice");
+                boolean ISRESERVED = rs.getBoolean("isReserved");
                 String urlString = rs.getString("URL");
                 addProtocolToURL(urlString);
-                wishList.add(new Wish(WISHNAME, WISHPRICE, urlString, WISHID));
+                wishList.add(new Wish(WISHNAME, WISHPRICE, urlString, WISHID, ISRESERVED));
             }
             return wishList;
         } catch (SQLException e) {
@@ -224,19 +222,19 @@ public void deleteWishList(int wishlistID) {
         }
     }
 
-    public List<Wishlist> getAllWishlistsFromUser(String userName){
+    public List<Wishlist> getAllWishlistsFromUser(String userName) {
         List<Wishlist> wishlists = new ArrayList<>();
         String SQL = "SELECT * FROM WISHLIST WHERE USERNAME = ?";
         Connection con = ConnectionManager.getConnection(url, user, password);
-        try (PreparedStatement psmt = con.prepareStatement(SQL)){
-            psmt.setString(1,userName);
+        try (PreparedStatement psmt = con.prepareStatement(SQL)) {
+            psmt.setString(1, userName);
             ResultSet rs = psmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int WISHLISTID = rs.getInt("wishlistid");
                 String WISHLISTNAME = rs.getString("wishlistName");
-                wishlists.add(new Wishlist(WISHLISTID,userName,WISHLISTNAME));
+                wishlists.add(new Wishlist(WISHLISTID, userName, WISHLISTNAME));
             }
-        return wishlists;
+            return wishlists;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -289,6 +287,19 @@ public void deleteWishList(int wishlistID) {
             while (rs.next()) {
                 System.out.println(rs.getString("username") + " " + rs.getString("password"));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void reserveWish(boolean isReserved, int wishId) {
+        String sql = "UPDATE wish SET isReserved = (?) WHERE wishId = (?);";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setBoolean(1, isReserved);
+            pstmt.setInt(2, wishId);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -23,6 +23,7 @@
         <th>Wish Name</th>
         <th>URL</th>
         <th>Price</th>
+        <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -34,8 +35,16 @@
             <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
         </td>
         <td th:text="${wish.wishPrice}">Price</td>
+        <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
+
         <td>
             <a th:href="@{'/deleteWish/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID}}" class="btn btn-danger">Delete</a>
+        </td>
+        <td th:if="${session.user != null} AND ${session.user.username != username}">
+            <a th:href="@{'/see-wishlist/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}">
+                <span th:if="${wish.isReserved}">Fjern reservation</span>
+                <span th:unless="${wish.isReserved}">Reserver</span>
+            </a>
         </td>
         <td>
             <a th:href="@{'/updateWish/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID}}" class="btn btn-primary">Update</a>

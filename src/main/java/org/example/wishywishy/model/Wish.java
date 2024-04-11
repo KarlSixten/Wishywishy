@@ -7,13 +7,15 @@ public class Wish {
     private double wishPrice;
     private String url;
     private int wishID;
+    private boolean isReserved;
 
-    public Wish(String wishName, double wishPrice, String url, int wishID) {
+    public Wish(String wishName, double wishPrice, String url, int wishID, boolean isReserved) {
 
         this.wishName = wishName;
         this.wishPrice = wishPrice;
         this.url = url;
         this.wishID = wishID;
+        this.isReserved = isReserved;
     }
     public Wish(){
 
@@ -50,5 +52,13 @@ public class Wish {
 
     public void setWishID(int wishID) {
         this.wishID = wishID;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
     }
 }
