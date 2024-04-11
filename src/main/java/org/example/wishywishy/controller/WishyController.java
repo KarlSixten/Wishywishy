@@ -67,14 +67,17 @@ public class WishyController {
 
     @GetMapping("{username}/addWishList/")
     public String addWishList(Model model, @PathVariable("username") String username){
-        model.addAttribute("wishList", new Wishlist());
+        Wishlist newWishlist = new Wishlist();
+        User user = (User) httpSession.getAttribute("user");
+        newWishlist.setUsername(user.getUsername());
+        model.addAttribute("wishList", newWishlist);
         return "add-wishlist";
     }
 
     @PostMapping("addWishList")
-    public String addWishList(@ModelAttribute Wishlist wishlist, String username) {
-        wishyService.addWishList(wishlist, username);
-        return "redirect:/" + username;
+    public String addWishList(@ModelAttribute Wishlist wishlist) {
+        wishyService.addWishList(wishlist, wishlist.getUsername());
+        return "redirect:/" + wishlist.getUsername();
     }
 
     @GetMapping("{username}/{wishListID}/deleteWishList/")
