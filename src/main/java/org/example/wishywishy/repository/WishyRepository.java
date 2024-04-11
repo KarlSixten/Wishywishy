@@ -92,6 +92,46 @@ public class WishyRepository {
         }
     }
 
+//    public void deleteWishList(int wishlistID) {
+//        String SQL = " DELETE FROM WISHLIST WHERE WISHLISTID = ?";
+//
+//        Connection connection = ConnectionManager.getConnection(url, user, password);
+//
+//        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)){
+//            preparedStatement.setInt(1, wishlistID);
+//            preparedStatement.executeUpdate();
+//        }
+//        catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
+public void deleteWishList(int wishlistID) {
+    deleteWishesInWishlist(wishlistID);
+    String SQL = "DELETE FROM WISHLIST WHERE WISHLISTID = ?";
+    Connection connection = ConnectionManager.getConnection(url, user, password);
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+        preparedStatement.setInt(1, wishlistID);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    private void deleteWishesInWishlist(int wishlistID) {
+        String SQL = "DELETE FROM WISH WHERE WISHLISTID = ?";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
+            preparedStatement.setInt(1, wishlistID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public void addWishList(Wishlist wishlist, String username) {
         String SQL = "INSERT INTO WISHLIST(USERNAME,WISHLISTNAME) values(?,?)";
         Connection con = ConnectionManager.getConnection(url, user, password);

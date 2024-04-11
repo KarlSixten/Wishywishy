@@ -95,6 +95,18 @@ public class WishyController {
         wishyService.deleteWish(wishId);
         return "redirect:/see-wishlist/" + username + "/" + wishlistid;
     }
+
+
+
+    @GetMapping("/deleteWishList/{username}/{wishListID}")
+  public String deleteWishList(@PathVariable String username, @PathVariable int wishListID){
+        wishyService.deleteWishlist(wishListID);
+        return "redirect:/user-front-page/" + username;
+    }
+
+
+
+
     @GetMapping("user-front-page/{username}")
     public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
