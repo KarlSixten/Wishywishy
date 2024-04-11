@@ -37,7 +37,7 @@ public class WishyController {
             httpSession.setAttribute("user", user);
             return "redirect:/" + user.getUsername();
         } else {
-            return "redirect:/login?error";
+            return "redirect:/?error";
         }
     }
 
@@ -53,7 +53,7 @@ public class WishyController {
     @PostMapping("login/createuser/save")
     public String getSaveNewUser(@ModelAttribute User newUser) {
         if (wishyService.createUser(newUser) != null) {
-            return "redirect:/login";
+            return "redirect:/";
         } else {
             return "redirect:/login/createuser?error";
         }
