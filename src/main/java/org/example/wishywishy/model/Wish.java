@@ -5,10 +5,10 @@ import java.net.URL;
 public class Wish {
     private String wishName;
     private double wishPrice;
-    private URL url;
+    private String url;
     private int wishID;
 
-    public Wish(String wishName, double wishPrice, URL url, int wishID) {
+    public Wish(String wishName, double wishPrice, String url, int wishID) {
 
         this.wishName = wishName;
         this.wishPrice = wishPrice;
@@ -36,11 +36,11 @@ public class Wish {
         this.wishPrice = wishPrice;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 

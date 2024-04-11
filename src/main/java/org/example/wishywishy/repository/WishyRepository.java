@@ -58,13 +58,22 @@ public class WishyRepository {
         Connection con = ConnectionManager.getConnection(url, user, password);
         try (PreparedStatement updateWishStmt = con.prepareStatement(SQLUPDATE)) {
             updateWishStmt.setString(1, updatedWish.getWishName());
-            updateWishStmt.setString(2, updatedWish.getUrl().toString());
+            if (updatedWish.getUrl() != null) {
+                String urlString = updatedWish.getUrl().toString();
+                if (!urlString.startsWith("http://") && !urlString.startsWith("https://")) {
+                    urlString = "http://" + urlString;
+                }
+                updateWishStmt.setString(2, urlString);
+            } else {
+                updateWishStmt.setNull(2, Types.VARCHAR);
+            }
+
             updateWishStmt.setDouble(3, updatedWish.getWishPrice());
             updateWishStmt.setInt(4, updatedWish.getWishID());
             rows = updateWishStmt.executeUpdate();
             System.out.println("Rows: " + rows);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         if (rows == 1) {
             return updatedWish;
@@ -103,13 +112,25 @@ public class WishyRepository {
         try { PreparedStatement preparedStatement = con.prepareStatement(SQL);
             preparedStatement.setString(1,wish.getWishName());
             preparedStatement.setDouble(2,wish.getWishPrice());
-            preparedStatement.setString(3,wish.getUrl().toString());
+            preparedStatement.setString(3,addProtocolToURL(wish.getUrl()));
             preparedStatement.setInt(4,wishListID);
             preparedStatement.executeUpdate();
         }
         catch (SQLException sqlException){
             sqlException.printStackTrace();
         }
+    }
+
+    private String addProtocolToURL(String url) {
+        if (url == null || url.trim().isEmpty()) {
+            return url;
+        }
+
+        if (!url.matches("^\\w+://.*")) {
+            url = "http://" + url;
+        }
+
+        return url;
     }
 
 
@@ -129,12 +150,9 @@ public class WishyRepository {
                 String WISHNAME = rs.getString("wishName");
                 double WISHPRICE = rs.getDouble("wishPrice");
                 String URLString = rs.getString("url");
-                if (!URLString.startsWith("http")){
-                    URLString = "http://" + URLString;
-                }
-                URL URL = new URL(URLString);
+                addProtocolToURL(URLString);
 
-                wish = new Wish(WISHNAME, WISHPRICE, URL, WISHID);
+                wish = new Wish(WISHNAME, WISHPRICE, URLString, WISHID);
 
 
             }
@@ -148,7 +166,6 @@ public class WishyRepository {
     public List<Wish> findAllWishesInWishlist(int wishlistID){
         List<Wish> wishList = new ArrayList<>();
         String SQL = "SELECT * FROM WISH WHERE WISHLISTID = ?";
-
         Connection con = ConnectionManager.getConnection(url, user, password);
         try(PreparedStatement psmt = con.prepareStatement(SQL)){
             psmt.setInt(1, wishlistID);
@@ -156,19 +173,15 @@ public class WishyRepository {
             while(rs.next()){
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
-                String url = rs.getString("URL");
-                if (!url.startsWith("http")){
-                    url = "http://" + url;
-                }
                 double WISHPRICE = rs.getDouble("wishPrice");
-                wishList.add(new Wish(WISHNAME, WISHPRICE, new URL(url), WISHID));
+                String urlString = rs.getString("URL");
+                addProtocolToURL(urlString);
+                wishList.add(new Wish(WISHNAME, WISHPRICE, urlString, WISHID));
             }
             return wishList;
-        } catch (SQLException | MalformedURLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public List<Wishlist> getAllWishlistsFromUser(String userName){
