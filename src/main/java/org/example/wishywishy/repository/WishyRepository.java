@@ -11,6 +11,7 @@ import org.example.wishywishy.repository.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.lang.instrument.IllegalClassFormatException;
 import java.net.MalformedURLException;
 import java.sql.*;
 
@@ -139,7 +140,7 @@ public class WishyRepository {
             }
             return wish;
 
-        } catch (SQLException | MalformedURLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
