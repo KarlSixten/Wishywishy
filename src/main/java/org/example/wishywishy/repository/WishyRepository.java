@@ -92,19 +92,6 @@ public class WishyRepository {
         }
     }
 
-    //    public void deleteWishList(int wishlistID) {
-//        String SQL = " DELETE FROM WISHLIST WHERE WISHLISTID = ?";
-//
-//        Connection connection = ConnectionManager.getConnection(url, user, password);
-//
-//        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)){
-//            preparedStatement.setInt(1, wishlistID);
-//            preparedStatement.executeUpdate();
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
     public void deleteWishList(int wishlistID) {
         deleteWishesInWishlist(wishlistID);
         String SQL = "DELETE FROM WISHLIST WHERE WISHLISTID = ?";
