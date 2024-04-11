@@ -18,7 +18,7 @@
 <h1>Wishlist Details</h1>
 <table>
     <thead>
-    <tr>
+    <tr th:if="${!wishlist.isEmpty()}">
         <th>Wish ID</th>
         <th>Wish Name</th>
         <th>URL</th>

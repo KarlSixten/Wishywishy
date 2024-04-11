@@ -21,6 +21,8 @@ public class WishyController {
         this.httpSession = httpSession;
     }
 
+    User userLoggedIn;
+
     @GetMapping("test")
     public String getTest() {
         return "test";
@@ -82,6 +84,7 @@ public class WishyController {
         return "add-wish";
     }
 
+
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
         wishyService.addWish(wish, wishListID);
@@ -101,7 +104,6 @@ public class WishyController {
         wishyService.deleteWishlist(wishListID);
         return "redirect:/user-front-page/" + username;
     }
-
 
 
 
