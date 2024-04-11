@@ -3,31 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-<form action="/addWish" th:object="${wish}" method="post">
-    <p>
-        <label>Navn:</label>
-        <input type="text" name="wishName" th:field="*{wishName}" required />
-    </p>
-    <p>
-        <label>Pris:</label>
-        <input type="number" name="wishPrice" min="0" th:field="*{wishPrice}" required />
-    </p>
-    <p>
-        <label>Link:</label>
-        <input type="text" name="url" th:field="*{url}" />
-    </p>
-    <input type="hidden" name="username" th:value="${username}" />
-    <input type="hidden" name="wishlistid" th:value="${wishlistid}" />
 
-    <input type="submit" value="create" class="btn btn-primary" />
-</form>
-<form th:action="@{ '/' + ${username} + '/see-wishlist/' + ${wishlistid}}" method="get">
-    <button class="btn btn-info" type="submit">Tilbage</button>
-</form>
+<div class="container" style="margin-top: 20px;">
+    <form action="/addWish" th:object="${wish}" method="post">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="wishName" type="text" name="wishName" th:field="*{wishName}" required />
+                <label for="wishName">Navn:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="wishPrice" type="number" name="wishPrice" min="0" th:field="*{wishPrice}" required />
+                <label for="wishPrice">Pris:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="url" type="text" name="url" th:field="*{url}" />
+                <label for="url">Link:</label>
+            </div>
+        </div>
+        <input type="hidden" name="username" th:value="${username}" />
+        <input type="hidden" name="wishlistid" th:value="${wishlistid}" />
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <button type="submit" class="btn waves-effect waves-light">create<i class="material-icons right">send</i></button>
+    </form>
+    <form th:action="@{ '/' + ${username} + '/see-wishlist/' + ${wishlistid}}" method="get" style="margin-top: 20px;">
+        <button class="btn waves-effect waves-light">Tilbage</button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
+

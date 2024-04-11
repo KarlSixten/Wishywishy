@@ -3,62 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>See Wishlist</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
-<style>
-    .footer {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        padding: 10px;
-        background-color: #f8f9fa;
-    }
-</style>
 <body>
-<h1>Wishlist Details</h1>
-<table>
-    <thead>
-    <tr th:if="${!wishlist.isEmpty()}">
-        <th>Wish ID</th>
-        <th>Wish Name</th>
-        <th>URL</th>
-        <th>Price</th>
-        <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="wish : ${wishlist}">
-        <td th:text="${wish.wishID}">Wish ID</td>
-        <td th:text="${wish.wishName}">Wish Name</td>
-        <td>
-            <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
-        </td>
-        <td th:text="${wish.wishPrice}">Price</td>
-        <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
 
-        <td>
-            <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn btn-danger">Delete</a>
-        </td>
-        <td th:if="${session.user != null} AND ${session.user.username != username}">
-            <a th:href="@{${username} + '/see-wishlist/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}">
-                <span th:if="${wish.isReserved}">Fjern reservation</span>
-                <span th:unless="${wish.isReserved}">Reserver</span>
-            </a>
-        </td>
-        <td>
-            <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn btn-primary">Update</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
-    <button class="btn btn-info" type="submit">Tilføj ønske</button>
-</form>
-<form th:action="@{'/' + ${username}}" method="get">
-    <button class="btn btn-info" type="submit">Tilbage</button>
-</form>
+<div class="container" style="padding-top: 20px;">
+    <h4>Wishlist Details</h4>
+    <table class="highlight">
+        <thead>
+        <tr th:if="${!wishlist.isEmpty()}">
+            <th>Wish ID</th>
+            <th>Wish Name</th>
+            <th>URL</th>
+            <th>Price</th>
+            <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="wish : ${wishlist}">
+            <td th:text="${wish.wishID}">Wish ID</td>
+            <td th:text="${wish.wishName}">Wish Name</td>
+            <td>
+                <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
+            </td>
+            <td th:text="${wish.wishPrice}">Price</td>
+            <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
+            <td>
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn red">Delete</a>
+            </td>
+            <td th:if="${session.user != null} AND ${session.user.username != username}">
+                <a th:href="@{${username} + '/see-wishlist/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}" class="waves-effect waves-light btn" th:classappend="${wish.isReserved} ? 'red' : 'green'">
+                    <span th:if="${wish.isReserved}">Fjern reservation</span>
+                    <span th:unless="${wish.isReserved}">Reserver</span>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn blue">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
+        <button class="btn waves-effect waves-light blue" type="submit">Tilføj ønske</button>
+    </form>
+    <form th:action="@{'/' + ${username}}" method="get">
+        <button class="btn waves-effect waves-light blue" type="submit">Tilbage</button>
+    </form>
+</div>
 
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
