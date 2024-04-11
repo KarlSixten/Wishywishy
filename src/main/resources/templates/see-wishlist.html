@@ -26,7 +26,7 @@
             <th>URL</th>
             <th>Price</th>
             <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
-            <th>Action</th>
+            <th th:if="${session.user != null} and ${session.user.username == username}">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -38,24 +38,26 @@
             </td>
             <td th:text="${wish.wishPrice}">Price</td>
             <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
-            <td>
+            <td th:if="${session.user != null} and ${session.user.username == username}">
                 <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn red">Delete</a>
             </td>
             <td th:if="${session.user != null} AND ${session.user.username != username}">
-                <a th:href="@{${username} + '/see-wishlist/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}" class="waves-effect waves-light btn" th:classappend="${wish.isReserved} ? 'red' : 'green'">
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}" class="waves-effect waves-light btn" th:classappend="${wish.isReserved} ? 'red' : 'green'">
                     <span th:if="${wish.isReserved}">Fjern reservation</span>
                     <span th:unless="${wish.isReserved}">Reserver</span>
                 </a>
             </td>
-            <td>
+            <td th:if="${session.user != null} and ${session.user.username == username}">
                 <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn blue">Update</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
-        <button class="btn waves-effect waves-light blue" type="submit">Tilføj ønske</button>
-    </form>
+    <div th:if="${session.user != null} and ${session.user.username == username}">
+        <form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
+            <button class="btn waves-effect waves-light blue" type="submit">Tilføj ønske</button>
+        </form>
+    </div>
     <form th:action="@{'/' + ${username}}" method="get">
         <button class="btn waves-effect waves-light blue" type="submit">Tilbage</button>
     </form>
