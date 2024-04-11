@@ -30,6 +30,11 @@
         <td th:text="${wishlist.username}">Username</td>
         <td th:text="${wishlist.wishlistName}">Wishlist Name</td>
         <td>
+            <a th:href="@{'/deleteWishList/' + ${wishlist.username} + '/' + ${wishlist.wishlistID}}" class="btn btn-danger">Delete</a>
+
+        </td>
+
+        <td>
             <form th:action="@{'/see-wishlist/' + ${wishlist.username} + '/' + ${wishlist.wishlistID}}" method="get">
                 <button type="submit">View Wishes</button>
             </form>
