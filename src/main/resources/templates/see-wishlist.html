@@ -38,7 +38,7 @@
         <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
 
         <td>
-            <a th:href="@{${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish/'}" class="btn btn-danger">Delete</a>
+            <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn btn-danger">Delete</a>
         </td>
         <td th:if="${session.user != null} AND ${session.user.username != username}">
             <a th:href="@{${username} + '/see-wishlist/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}">
@@ -47,15 +47,15 @@
             </a>
         </td>
         <td>
-            <a th:href="@{${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish/'}" class="btn btn-primary">Update</a>
+            <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn btn-primary">Update</a>
         </td>
     </tr>
     </tbody>
 </table>
-<form th:action="@{{username} + '/' + ${wishlistid} + '/addWish/'}" method="get">
+<form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
     <button class="btn btn-info" type="submit">Tilføj ønske</button>
 </form>
-<form th:action="@{${username}}" method="get">
+<form th:action="@{'/' + ${username}}" method="get">
     <button class="btn btn-info" type="submit">Tilbage</button>
 </form>
 
