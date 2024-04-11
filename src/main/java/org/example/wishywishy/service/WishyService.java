@@ -60,4 +60,8 @@ public class WishyService {
     public List <Wishlist> getAllWishlistsFromUser(String username){
         return wishyRepository.getAllWishlistsFromUser(username);
     }
+
+    public void reserveWish(boolean isReserved, int wishId) {
+        wishyRepository.reserveWish(isReserved, wishId);
+    }
 }

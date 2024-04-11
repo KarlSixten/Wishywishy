@@ -23,6 +23,7 @@ CREATE TABLE wish
     URL VARCHAR(255) NULL,
     wishPrice DOUBLE,
     wishlistId INT,
+    isReserved BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (wishlistId) REFERENCES wishlist(wishlistId)
 );
 
@@ -31,5 +32,5 @@ INSERT into users (username, password) values (1,1);
 
 insert into wishlist (username, wishlistName) values ('gustavSo', 'liste 1');
 insert into wishlist (username, wishlistName) values ('gustavSo', 'liste 2');
-insert into wish (wishname, URL, wishprice, WISHLISTID) values ('parfume', 'parfume.dk', 300, 1);
+insert into wish (wishname, URL, wishprice, WISHLISTID, isReserved) values ('parfume', 'parfume.dk', 300, 1, true);
 insert into wish (wishname, URL, wishprice, WISHLISTID) values ('parfume', 'parfume.dk', 900, 1);

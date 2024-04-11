@@ -21,8 +21,6 @@ public class WishyController {
         this.httpSession = httpSession;
     }
 
-    User userLoggedIn;
-
     @GetMapping("test")
     public String getTest() {
         return "test";
@@ -65,24 +63,24 @@ public class WishyController {
             return "redirect:/login/createuser?error";
         }
     }
+
     @GetMapping("addWishList")
-    public String addWishList(Model model){
+    public String addWishList(Model model) {
         model.addAttribute("wishList", new Wishlist());
         return "add-wishlist";
     }
 
     @PostMapping("addWishList")
-    public String addWishList(@ModelAttribute Wishlist wishlist, String username){
+    public String addWishList(@ModelAttribute Wishlist wishlist, String username) {
         wishyService.addWishList(wishlist, username);
         return "redirect:/user-front-page/" + username;
     }
 
     @GetMapping("addWish/{username}/{wishlistid}")
-    public String addWish(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model){
+    public String addWish(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
         model.addAttribute("wish", new Wish());
         return "add-wish";
     }
-
 
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
@@ -107,6 +105,7 @@ public class WishyController {
 
 
 
+
     @GetMapping("user-front-page/{username}")
     public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
@@ -114,7 +113,7 @@ public class WishyController {
     }
 
     @GetMapping("see-wishlist/{username}/{wishlistid}")
-    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model){
+    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
         model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
         return "see-wishlist";
     }
@@ -134,6 +133,16 @@ public class WishyController {
     @PostMapping("/updateWish")
     public String updateWish(@ModelAttribute Wish wish, @RequestParam("username") String username, @RequestParam("wishlistid") int wishlistid) {
         wishyService.updateWish(wish);
+        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+    }
+
+    @GetMapping("see-wishlist/{username}/{wishlistid}/{wishId}/togglereserve")
+    public String reserveWish(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId) {
+        if (wishyService.findWish(wishId).isReserved()) {
+            wishyService.reserveWish(false, wishId);
+        } else {
+            wishyService.reserveWish(true, wishId);
+        }
         return "redirect:/see-wishlist/" + username + "/" + wishlistid;
     }
 }
