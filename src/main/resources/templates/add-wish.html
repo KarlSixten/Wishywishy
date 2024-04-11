@@ -24,7 +24,7 @@
 
     <input type="submit" value="create" class="btn btn-primary" />
 </form>
-<form th:action="@{${username} + '/see-wishlist/' + ${wishlistid}}" method="get">
+<form th:action="@{ '/' + ${username} + '/see-wishlist/' + ${wishlistid}}" method="get">
     <button class="btn btn-info" type="submit">Tilbage</button>
 </form>
 
