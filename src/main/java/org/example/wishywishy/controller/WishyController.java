@@ -21,13 +21,6 @@ public class WishyController {
         this.httpSession = httpSession;
     }
 
-    User userLoggedIn;
-
-    @GetMapping("test")
-    public String getTest() {
-        return "test";
-    }
-
     @GetMapping("login")
     public String getLogin(Model model, @RequestParam(name = "error", required = false) String error) {
         httpSession.invalidate();
@@ -65,6 +58,13 @@ public class WishyController {
             return "redirect:/login/createuser?error";
         }
     }
+
+    @GetMapping("user-front-page/{username}")
+    public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
+        model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
+        return "user-front-page";
+    }
+
     @GetMapping("addWishList/{username}")
     public String addWishList(Model model, @PathVariable("username") String username){
         model.addAttribute("wishList", new Wishlist());
@@ -75,6 +75,18 @@ public class WishyController {
     public String addWishList(@ModelAttribute Wishlist wishlist, String username) {
         wishyService.addWishList(wishlist, username);
         return "redirect:/user-front-page/" + username;
+    }
+
+    @GetMapping("/deleteWishList/{username}/{wishListID}")
+    public String deleteWishList(@PathVariable String username, @PathVariable int wishListID){
+        wishyService.deleteWishlist(wishListID);
+        return "redirect:/user-front-page/" + username;
+    }
+
+    @GetMapping("see-wishlist/{username}/{wishlistid}")
+    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
+        model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
+        return "see-wishlist";
     }
 
     @GetMapping("addWish/{username}/{wishlistid}")
@@ -96,28 +108,6 @@ public class WishyController {
         return "redirect:/see-wishlist/" + username + "/" + wishlistid;
     }
 
-
-
-    @GetMapping("/deleteWishList/{username}/{wishListID}")
-  public String deleteWishList(@PathVariable String username, @PathVariable int wishListID){
-        wishyService.deleteWishlist(wishListID);
-        return "redirect:/user-front-page/" + username;
-    }
-
-
-
-
-    @GetMapping("user-front-page/{username}")
-    public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
-        model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
-        return "user-front-page";
-    }
-
-    @GetMapping("see-wishlist/{username}/{wishlistid}")
-    public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
-        model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
-        return "see-wishlist";
-    }
     @GetMapping("/updateWish/{username}/{wishlistid}/{wishId}")
     public String showUpdateWishForm(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId, Model model) {
         Wish wish = wishyService.findWish(wishId);
