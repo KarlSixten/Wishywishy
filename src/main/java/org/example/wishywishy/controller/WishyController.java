@@ -21,6 +21,8 @@ public class WishyController {
         this.httpSession = httpSession;
     }
 
+    User userLoggedIn;
+
     @GetMapping("test")
     public String getTest() {
         return "test";
@@ -63,9 +65,8 @@ public class WishyController {
             return "redirect:/login/createuser?error";
         }
     }
-
-    @GetMapping("addWishList")
-    public String addWishList(Model model) {
+    @GetMapping("addWishList/{username}")
+    public String addWishList(Model model, @PathVariable("username") String username){
         model.addAttribute("wishList", new Wishlist());
         return "add-wishlist";
     }
@@ -81,6 +82,7 @@ public class WishyController {
         model.addAttribute("wish", new Wish());
         return "add-wish";
     }
+
 
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
@@ -101,7 +103,6 @@ public class WishyController {
         wishyService.deleteWishlist(wishListID);
         return "redirect:/user-front-page/" + username;
     }
-
 
 
 

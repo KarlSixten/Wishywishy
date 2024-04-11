@@ -43,7 +43,7 @@
     </tbody>
 </table>
 <div th:if="${session.user != null} and ${session.user.username == username}">
-<a href="/addWishList"> Opret ny ønskelist</a>
+    <a th:href="'/addWishList/' + ${username}" > Opret ny ønskeliste</a>
 </div>
     <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>

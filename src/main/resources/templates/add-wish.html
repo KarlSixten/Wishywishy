@@ -24,6 +24,9 @@
 
     <input type="submit" value="create" class="btn btn-primary" />
 </form>
+<form th:action="@{'/see-wishlist/' + ${username} + '/' + ${wishlistid}}" method="get">
+    <button class="btn btn-info" type="submit">Tilbage</button>
+</form>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

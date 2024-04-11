@@ -24,5 +24,8 @@
     <input type="hidden" name="wishlistid" th:value="${wishlistid}"/>
     <input type="submit" value="Update" class="btn btn-success"/>
 </form>
+<form th:action="@{'/see-wishlist/' + ${username} + '/' + ${wishlistid}}" method="get">
+    <button class="btn btn-info" type="submit">Tilbage</button>
+</form>
 </body>
 </html>
