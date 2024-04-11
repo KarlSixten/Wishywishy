@@ -106,4 +106,22 @@ public class WishyController {
         model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
         return "see-wishlist";
     }
+    @GetMapping("/updateWish/{username}/{wishlistid}/{wishId}")
+    public String showUpdateWishForm(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId, Model model) {
+        Wish wish = wishyService.findWish(wishId);
+        if (wish != null) {
+            model.addAttribute("wish", wish);
+            wishyService.updateWish(wish);
+            model.addAttribute("username", username);
+            model.addAttribute("wishlistid", wishlistid);
+            return "update-wish";
+        }
+        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+    }
+
+    @PostMapping("/updateWish")
+    public String updateWish(@ModelAttribute Wish wish, @RequestParam("username") String username, @RequestParam("wishlistid") int wishlistid) {
+        wishyService.updateWish(wish);
+        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+    }
 }

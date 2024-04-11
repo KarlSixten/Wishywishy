@@ -37,6 +37,9 @@
         <td>
             <a th:href="@{'/deleteWish/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID}}" class="btn btn-danger">Delete</a>
         </td>
+        <td>
+            <a th:href="@{'/updateWish/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID}}" class="btn btn-primary">Update</a>
+        </td>
     </tr>
     </tbody>
 </table>
