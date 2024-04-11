@@ -32,7 +32,7 @@
             <td th:text="${wishlist.wishlistID}">Wishlist ID</td>
             <td th:text="${wishlist.username}">Username</td>
             <td th:text="${wishlist.wishlistName}">Wishlist Name</td>
-            <td>
+            <td th:if="${session.user != null} and ${session.user.username == username}">
                 <a th:href="@{${wishlist.username} + '/' + ${wishlist.wishlistID} + '/deleteWishList/'}" class="btn red">Delete</a>
             </td>
             <td>
