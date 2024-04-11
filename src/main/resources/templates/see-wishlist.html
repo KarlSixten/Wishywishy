@@ -55,6 +55,9 @@
 <form th:action="@{'/addWish/' + ${username} + '/' + ${wishlistid}}" method="get">
     <button class="btn btn-info" type="submit">Tilføj ønske</button>
 </form>
+<form th:action="@{'/user-front-page/' + ${username}}" method="get">
+    <button class="btn btn-info" type="submit">Tilbage</button>
+</form>
 
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>

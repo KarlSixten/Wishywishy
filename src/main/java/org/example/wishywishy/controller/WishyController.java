@@ -65,9 +65,8 @@ public class WishyController {
             return "redirect:/login/createuser?error";
         }
     }
-
-    @GetMapping("addWishList")
-    public String addWishList(Model model) {
+    @GetMapping("addWishList/{username}")
+    public String addWishList(Model model, @PathVariable("username") String username){
         model.addAttribute("wishList", new Wishlist());
         return "add-wishlist";
     }
