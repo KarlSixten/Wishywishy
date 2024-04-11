@@ -5,18 +5,11 @@ import org.example.wishywishy.repository.util.ConnectionManager;
 import org.example.wishywishy.model.Wish;
 import org.example.wishywishy.model.Wishlist;
 
-import org.example.wishywishy.repository.util.ConnectionManager;
-import org.example.wishywishy.model.Wish;
-import org.example.wishywishy.repository.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.lang.instrument.IllegalClassFormatException;
-import java.net.MalformedURLException;
 import java.sql.*;
 
-import java.net.URL;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -279,7 +272,7 @@ public class WishyRepository {
         }
     }
 
-    public void reserveWish(boolean isReserved, int wishId) {
+    public void toggleReserve(boolean isReserved, int wishId) {
         String sql = "UPDATE wish SET isReserved = (?) WHERE wishId = (?);";
         Connection connection = ConnectionManager.getConnection(url, user, password);
 

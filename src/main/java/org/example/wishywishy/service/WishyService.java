@@ -61,7 +61,7 @@ public class WishyService {
         return wishyRepository.getAllWishlistsFromUser(username);
     }
 
-    public void reserveWish(boolean isReserved, int wishId) {
-        wishyRepository.reserveWish(isReserved, wishId);
+    public void toggleReserve(boolean isReserved, int wishId) {
+        wishyRepository.toggleReserve(isReserved, wishId);
     }
 }
