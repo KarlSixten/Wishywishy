@@ -57,7 +57,7 @@ public class WishyRepository {
         Connection con = ConnectionManager.getConnection(url, user, password);
         try (PreparedStatement updateWishStmt = con.prepareStatement(SQLUPDATE)) {
             updateWishStmt.setString(1, updatedWish.getWishName());
-            updateWishStmt.setURL(2, updatedWish.getUrl());
+            updateWishStmt.setString(2, updatedWish.getUrl().toString());
             updateWishStmt.setDouble(3, updatedWish.getWishPrice());
             updateWishStmt.setInt(4, updatedWish.getWishID());
             rows = updateWishStmt.executeUpdate();
@@ -127,14 +127,19 @@ public class WishyRepository {
                 int WISHID = rs.getInt("wishId");
                 String WISHNAME = rs.getString("wishName");
                 double WISHPRICE = rs.getDouble("wishPrice");
-                URL URL = rs.getURL("url");
+                String URLString = rs.getString("url");
+                if (!URLString.startsWith("http")){
+                    URLString = "http://" + URLString;
+                }
+                URL URL = new URL(URLString);
+
                 wish = new Wish(WISHNAME, WISHPRICE, URL, WISHID);
 
 
             }
             return wish;
 
-        } catch (SQLException e) {
+        } catch (SQLException | MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
