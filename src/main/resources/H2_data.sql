@@ -20,7 +20,7 @@ CREATE TABLE wish
 (
     wishId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     wishName VARCHAR(45),
-    URL VARCHAR(45),
+    URL VARCHAR(255) NULL,
     wishPrice DOUBLE,
     wishlistId INT,
     FOREIGN KEY (wishlistId) REFERENCES wishlist(wishlistId)
