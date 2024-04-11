@@ -21,7 +21,7 @@ public class WishyController {
         this.httpSession = httpSession;
     }
 
-    @GetMapping("login")
+    @GetMapping("")
     public String getLogin(Model model, @RequestParam(name = "error", required = false) String error) {
         httpSession.invalidate();
         model.addAttribute("user", new User());
@@ -35,7 +35,7 @@ public class WishyController {
     public String getSubmitLogin(@ModelAttribute User user, HttpSession httpSession) {
         if (wishyService.checkIfLoginValid(user) != null) {
             httpSession.setAttribute("user", user);
-            return "redirect:/user-front-page/" + user.getUsername();
+            return "redirect:/" + user.getUsername();
         } else {
             return "redirect:/login?error";
         }
@@ -59,13 +59,13 @@ public class WishyController {
         }
     }
 
-    @GetMapping("user-front-page/{username}")
+    @GetMapping("{username}")
     public String getWishlistsFromUser(@PathVariable("username") String username, Model model){
         model.addAttribute("wishlists", wishyService.getAllWishlistsFromUser(username));
         return "user-front-page";
     }
 
-    @GetMapping("addWishList/{username}")
+    @GetMapping("{username}/addWishList/")
     public String addWishList(Model model, @PathVariable("username") String username){
         model.addAttribute("wishList", new Wishlist());
         return "add-wishlist";
@@ -74,22 +74,22 @@ public class WishyController {
     @PostMapping("addWishList")
     public String addWishList(@ModelAttribute Wishlist wishlist, String username) {
         wishyService.addWishList(wishlist, username);
-        return "redirect:/user-front-page/" + username;
+        return "redirect:/" + username;
     }
 
-    @GetMapping("/deleteWishList/{username}/{wishListID}")
+    @GetMapping("{username}/{wishListID}/deleteWishList/")
     public String deleteWishList(@PathVariable String username, @PathVariable int wishListID){
         wishyService.deleteWishlist(wishListID);
-        return "redirect:/user-front-page/" + username;
+        return "redirect:/" + username;
     }
 
-    @GetMapping("see-wishlist/{username}/{wishlistid}")
+    @GetMapping("{username}/see-wishlist/{wishlistid}")
     public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
         model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
         return "see-wishlist";
     }
 
-    @GetMapping("addWish/{username}/{wishlistid}")
+    @GetMapping("{username}/{wishlistid}/addWish")
     public String addWish(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
         model.addAttribute("wish", new Wish());
         return "add-wish";
@@ -99,16 +99,16 @@ public class WishyController {
     @PostMapping("addWish")
     public String addWish(@ModelAttribute Wish wish, @RequestParam("wishlistid") int wishListID, @RequestParam("username") String username) {
         wishyService.addWish(wish, wishListID);
-        return "redirect:/see-wishlist/" + username + "/" + wishListID;
+        return "redirect:/" + username + "/see-wishlist/" + wishListID;
     }
 
-    @GetMapping("/deleteWish/{username}/{wishlistid}/{wishId}")
+    @GetMapping("{username}/{wishlistid}/{wishId}/deleteWish")
     public String deleteWish(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId) throws SQLException {
         wishyService.deleteWish(wishId);
-        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+        return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
 
-    @GetMapping("/updateWish/{username}/{wishlistid}/{wishId}")
+    @GetMapping("{username}/{wishlistid}/{wishId}/updateWish")
     public String showUpdateWishForm(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId, Model model) {
         Wish wish = wishyService.findWish(wishId);
         if (wish != null) {
@@ -118,22 +118,22 @@ public class WishyController {
             model.addAttribute("wishlistid", wishlistid);
             return "update-wish";
         }
-        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+        return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
 
-    @PostMapping("/updateWish")
+    @PostMapping("updateWish")
     public String updateWish(@ModelAttribute Wish wish, @RequestParam("username") String username, @RequestParam("wishlistid") int wishlistid) {
         wishyService.updateWish(wish);
-        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+        return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
 
-    @GetMapping("see-wishlist/{username}/{wishlistid}/{wishId}/togglereserve")
+    @GetMapping("{username}/see-wishlist/{wishlistid}/{wishId}/togglereserve")
     public String reserveWish(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId) {
         if (wishyService.findWish(wishId).isReserved()) {
             wishyService.toggleReserve(false, wishId);
         } else {
             wishyService.toggleReserve(true, wishId);
         }
-        return "redirect:/see-wishlist/" + username + "/" + wishlistid;
+        return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
 }
