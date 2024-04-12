@@ -6,7 +6,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
+<style>
+    .example.users {
+        padding-left: 10px; /* Add padding to the left */
+    }
+    .example.users ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .example.users ul li {
+        margin-bottom: 5px;
+        padding-left: 10px;
+    }
+</style>
 <body>
+<div class="example users">
+    <h4>Brugernes ønskelister:</h4>
+    <ul>
+        <tbody>
+        <tr th:each="user : ${exampleusers}">
+            <li>
+                <a th:href="'/' + ${user.username}" th:text="${user.username}">Username</a>
+            </li>
+        </tr>
+        </tbody>
+    </ul>
+</div>
 
 <div class="container" style="margin-top: 20px;">
     <h4 class="center-align">LOGIN</h4>
@@ -36,6 +62,6 @@
         <a href="login/createuser" class="waves-effect waves-light btn">Opret ny bruger</a>
     </div>
 </div>
-
+<div th:replace="~{fragments/footer :: footer}" class="footer"></div>
 </body>
 </html>
