@@ -64,4 +64,8 @@ public class WishyService {
     public void toggleReserve(boolean isReserved, int wishId) {
         wishyRepository.toggleReserve(isReserved, wishId);
     }
+
+    public List<User> getAllUsers() {
+        return wishyRepository.getAllUsers();
+    }
 }

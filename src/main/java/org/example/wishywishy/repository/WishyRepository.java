@@ -258,18 +258,20 @@ public class WishyRepository {
         }
     }
 
-    public void TESTprintAllUsers() {
+    public List<User> getAllUsers() {
+        List<User> allUsers = new ArrayList<>();
         String sql = "SELECT * FROM users;";
         Connection connection = ConnectionManager.getConnection(url, user, password);
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                System.out.println(rs.getString("username") + " " + rs.getString("password"));
+             while (rs.next()) {
+                allUsers.add(new User(rs.getString("username"), rs.getString("password")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return allUsers;
     }
 
     public void toggleReserve(boolean isReserved, int wishId) {
