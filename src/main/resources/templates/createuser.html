@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Create user</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
-    <body>
-    <h1>OPRET NY BRUGER</h1>
-        <form action="/login/createuser/save" th:objects="${user}" method="post">
-            <div class="form-group">
-                <label>Brugernavn</label>
-                <input type="text" name="name" th:field="*{user.username}" style="width: 200px;" required/>
-            </div>
-            <div class="form-group">
-                <label>Adgangskode</label>
-                <input type="password" name="password" th:field="*{user.password}" required/>
-            </div>
-            <p th:if="${param.error}" style="color: red">Brugernavn allerede i brug!</p>
-            <button type="submit">Opret!</button>
-        </form>
-    <a href="/"><button>Tilbage</button></a>
-    </body>
+<body>
+
+<div class="container" style="margin-top: 20px;">
+    <h4>OPRET NY BRUGER</h4>
+    <form action="/login/createuser/save" th:objects="${user}" method="post">
+        <div class="input-field">
+            <input id="name" type="text" name="name" th:field="*{user.username}" required/>
+            <label for="name">Brugernavn</label>
+        </div>
+        <div class="input-field">
+            <input id="password" type="password" name="password" th:field="*{user.password}" required/>
+            <label for="password">Adgangskode</label>
+        </div>
+        <p th:if="${param.error}" style="color: red">Brugernavn allerede i brug!</p>
+        <button type="submit" class="btn waves-effect waves-light">Opret!<i class="material-icons right"></i></button>
+    </form>
+    <a href="/" class="waves-effect waves-light btn"><i class="material-icons left"></i>Tilbage</a>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 </html>
