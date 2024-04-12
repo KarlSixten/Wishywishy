@@ -10,7 +10,7 @@
     <footer class="footer">
         <div th:if="${session.user != null}">
             <a th:text="'Hej ' + ${session.user.username} + '!'"}></a>
-            <a href="/">Log af.</a>
+            <a href="/logout">Log af.</a>
         </div>
         <div th:if="${session.user == null}">
             <a>Hej gæst!</a>
