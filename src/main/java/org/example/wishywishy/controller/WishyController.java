@@ -139,4 +139,10 @@ public class WishyController {
         }
         return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        httpSession.invalidate();
+        return "redirect:/";
+    }
 }
