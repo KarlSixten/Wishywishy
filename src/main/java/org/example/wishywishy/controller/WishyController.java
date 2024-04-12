@@ -23,8 +23,8 @@ public class WishyController {
 
     @GetMapping("")
     public String getLogin(Model model, @RequestParam(name = "error", required = false) String error) {
-        httpSession.invalidate();
         model.addAttribute("user", new User());
+        model.addAttribute("exampleusers", wishyService.getAllUsers());
         if (error != null) {
             model.addAttribute("error");
         }
