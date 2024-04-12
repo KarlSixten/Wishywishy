@@ -12,9 +12,18 @@
             padding: 10px;
             background-color: #f8f9fa;
         }
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #f0f0f0;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}" class="header"></div>
 
 <div class="container" style="padding-top: 20px;">
     <h4>User Front Page</h4>
@@ -48,7 +57,9 @@
     </div>
 </div>
 
+
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
