@@ -17,6 +17,14 @@ public class Wish {
         this.wishID = wishID;
         this.isReserved = isReserved;
     }
+
+    public Wish(String wishName, double wishPrice, String url, boolean isReserved) {
+
+        this.wishName = wishName;
+        this.wishPrice = wishPrice;
+        this.url = url;
+        this.isReserved = isReserved;
+    }
     public Wish(){
 
     }

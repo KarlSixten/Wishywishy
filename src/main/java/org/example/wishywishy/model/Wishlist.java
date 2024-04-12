@@ -13,6 +13,11 @@ public class Wishlist {
         this.username = username;
         this.wishlistName = wishlistName;
     }
+
+    public Wishlist(String username, String wishlistName) {
+        this.username = username;
+        this.wishlistName = wishlistName;
+    }
     public Wishlist(){
     }
 
