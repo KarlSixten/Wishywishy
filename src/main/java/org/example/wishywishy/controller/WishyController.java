@@ -89,6 +89,7 @@ public class WishyController {
     @GetMapping("{username}/see-wishlist/{wishlistid}")
     public String seeWishlist(@PathVariable("username") String username, @PathVariable("wishlistid") int wishlistid, Model model) {
         model.addAttribute("wishlist", wishyService.findAllWishesInWishlist(wishlistid));
+        model.addAttribute("wishlistName", wishyService.getWishlistName(wishlistid));
         return "see-wishlist";
     }
 

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>See Wishlist</title>
+    <title th:text="${wishlistName}"></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         .footer {
@@ -17,26 +17,24 @@
 <body>
 
 <div class="container" style="padding-top: 20px;">
-    <h4>Wishlist Details</h4>
+    <h4 th:text="${wishlistName}"></h4>
     <table class="highlight">
         <thead>
         <tr th:if="${!wishlist.isEmpty()}">
-            <th>Wish ID</th>
-            <th>Wish Name</th>
-            <th>URL</th>
-            <th>Price</th>
+            <th>Navn på ønske</th>
+            <th>Link</th>
+            <th>Pris</th>
             <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
             <th th:if="${session.user != null} and ${session.user.username == username}">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="wish : ${wishlist}">
-            <td th:text="${wish.wishID}">Wish ID</td>
             <td th:text="${wish.wishName}">Wish Name</td>
             <td>
                 <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
             </td>
-            <td th:text="${wish.wishPrice}">Price</td>
+            <td th:text="${wish.wishPrice} + ',- kr.'">Price</td>
             <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
                 <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn red">Delete</a>

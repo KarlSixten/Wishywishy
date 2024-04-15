@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Front Page</title>
+    <title th:text="${username} + ' ønskelister'"></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         .footer {
@@ -10,7 +10,7 @@
             bottom: 0;
             right: 0;
             padding: 10px;
-            background-color: #f8f9fa;
+            background-color: #f0f0f0;
         }
         .header {
             position: fixed;
@@ -18,7 +18,7 @@
             right: 0;
             background-color: #f0f0f0;
             padding: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding-top: 5px;
         }
     </style>
 </head>
@@ -26,27 +26,23 @@
 <div th:replace="~{fragments/header :: header}" class="header"></div>
 
 <div class="container" style="padding-top: 20px;">
-    <h4>User Front Page</h4>
+    <h4 th:text="${username} + ' ønskelister'"></h4>
     <table class="highlight">
         <thead>
         <tr>
-            <th>Wishlist ID</th>
-            <th>Username</th>
-            <th>Wishlist Name</th>
+            <th>Ønskeliste navn</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="wishlist : ${wishlists}">
-            <td th:text="${wishlist.wishlistID}">Wishlist ID</td>
-            <td th:text="${wishlist.username}">Username</td>
             <td th:text="${wishlist.wishlistName}">Wishlist Name</td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
-                <a th:href="@{${wishlist.username} + '/' + ${wishlist.wishlistID} + '/deleteWishList/'}" class="btn red">Delete</a>
+                <a th:href="@{${wishlist.username} + '/' + ${wishlist.wishlistID} + '/deleteWishList/'}" class="btn red">Slet</a>
             </td>
             <td>
                 <form th:action="@{${wishlist.username} + '/see-wishlist/' + ${wishlist.wishlistID} }" method="get">
-                    <button class="btn waves-effect waves-light" type="submit">View Wishes</button>
+                    <button class="btn waves-effect waves-light" type="submit">Se ønsker</button>
                 </form>
             </td>
         </tr>
