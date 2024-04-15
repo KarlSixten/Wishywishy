@@ -5,7 +5,18 @@
     <title>Create</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
+<style>
+    .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #f0f0f0;
+        padding: 10px;
+        padding-top: 5px;
+    }
+</style>
 <body>
+<div th:replace="~{fragments/header :: header}" class="header"></div>
 
 <div class="container" style="margin-top: 20px;">
     <form action="/addWish" th:object="${wish}" method="post">

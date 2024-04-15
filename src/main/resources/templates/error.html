@@ -3,5 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Error</title></head>
-<body><h3>Der er opstået en fejl - kontakt systemadministrator</h3></body>
+<style>
+    .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #f0f0f0;
+        padding: 10px;
+        padding-top: 5px;
+    }
+</style>
+<body>
+<div th:replace="~{fragments/header :: header}" class="header"></div>
+
+<h3>Der er opstået en fejl - kontakt systemadministrator</h3></body>
 </html>
