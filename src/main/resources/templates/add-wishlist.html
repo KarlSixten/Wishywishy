@@ -34,7 +34,7 @@
         <div class="form-group">
             <input type="text" class="form-control" id="wishlistName" th:field="*{wishlistName}" placeholder="Navn på ønskeliste">
         </div>
-        <button type="submit" class="btn btn-primary">Tilføj</button>
+        <button type="submit" class="btn btn-info">Tilføj</button>
     </form>
     <form th:action="@{'/' + ${username}}" method="get">
         <button class="btn btn-info" type="submit">Tilbage</button>

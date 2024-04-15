@@ -53,18 +53,18 @@
                 </a>
             </td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
-                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn blue">Opdater</a>
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn teal">Opdater</a>
             </td>
         </tr>
         </tbody>
     </table>
     <div th:if="${session.user != null} and ${session.user.username == username}">
         <form th:action="@{'/' + ${username} + '/' + ${wishlistid} + '/addWish'}" method="get">
-            <button class="btn waves-effect waves-light blue" type="submit">Tilføj ønske</button>
+            <button class="btn waves-effect waves-light light" type="submit">Tilføj ønske</button>
         </form>
     </div>
     <form th:action="@{'/' + ${username}}" method="get">
-        <button class="btn waves-effect waves-light blue" type="submit">Tilbage</button>
+        <button class="btn waves-effect waves-light light" type="submit">Tilbage</button>
     </form>
 </div>
 
