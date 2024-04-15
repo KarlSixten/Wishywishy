@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <style>
     .example.users {
-        padding-left: 10px; /* Add padding to the left */
+        padding-left: 10px;
     }
     .example.users ul {
         list-style-type: none;
@@ -28,18 +29,17 @@
      }
 </style>
 <body>
-<div class="example users">
-    <h4>Brugernes ønskelister:</h4>
-    <ul>
-        <tbody>
-        <tr th:each="user : ${exampleusers}">
-            <li>
-                <a th:href="'/' + ${user.username}" th:text="${user.username}">Username</a>
-            </li>
-        </tr>
-        </tbody>
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Brugernes ønskelister
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li th:each="user : ${exampleusers}">
+            <a class="dropdown-item" th:href="'/' + ${user.username}" th:text="${user.username}">Username</a>
+        </li>
     </ul>
 </div>
+
 
 <div class="container" style="margin-top: 20px;">
     <h4 class="center-align">LOGIN</h4>
@@ -70,5 +70,6 @@
     </div>
 </div>
 <div th:replace="~{fragments/footer :: footer}" class="footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
