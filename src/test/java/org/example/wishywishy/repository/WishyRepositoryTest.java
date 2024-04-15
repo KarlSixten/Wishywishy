@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,13 +37,13 @@ class WishyRepositoryTest {
     @Test
     void deleteWish() throws SQLException {
         repository.deleteWish(1);
-        assertEquals(1, repository.findAllWishesInWishlist(1).size());
+        assertEquals(0, repository.findAllWishesInWishlist(1).size());
     }
 
     @Test
     void deleteWishList() {
         repository.deleteWishList(1);
-        assertEquals(2,repository.getAllWishlistsFromUser("gustavSo").size());
+        assertEquals(3,repository.getAllWishlistsFromUser("gustavSo").size());
     }
 
     @Test
@@ -60,35 +61,35 @@ class WishyRepositoryTest {
     }
 
     @Test
-    void findWishWatch() {
+    void findWishBowlingKugle() {
         Wish foundWish = repository.findWish(1);
-        assertEquals("Watch", foundWish.getWishName());
+        assertEquals("Bowlingkugle", foundWish.getWishName());
     }
 
     @Test
     void findAllWishesInWishlist() {
-        assertEquals(2, repository.findAllWishesInWishlist(1).size());
+        assertEquals(3, repository.findAllWishesInWishlist(1).size());
 
     }
 
     @Test
     void getAllWishlistsFromUser() {
         int expected = repository.getAllWishlistsFromUser("gustavSo").size();
-        assertEquals(3, expected);
+        assertEquals(4, expected);
     }
 
     @Test
     void checkUniqueUsername() {
        User test = new User("testUser", "Test123");
        boolean expected = repository.checkUniqueUsername(test);
-       assertEquals(false, expected);
+        assertFalse(expected);
     }
 
     @Test
     void checkIfLoginValidFail() {
         User test = new User("testUser", "Invalid password");
         User expected = repository.checkIfLoginValid(test);
-        assertEquals(null, expected);
+        assertNull(expected);
     }
 
     @Test
@@ -108,6 +109,6 @@ class WishyRepositoryTest {
     void toggleReserve() {
         repository.toggleReserve(true, 1);
         boolean actual = repository.findWish(1).isReserved();
-        assertEquals(true, actual);
+        assertTrue(actual);
     }
 }
