@@ -10,11 +10,20 @@
             bottom: 0;
             right: 0;
             padding: 10px;
-            background-color: #f8f9fa;
+            background-color: #f0f0f0;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #f0f0f0;
+            padding: 10px;
+            padding-top: 5px;
         }
     </style>
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}" class="header"></div>
 
 <div class="container" style="padding-top: 20px;">
     <h4 th:text="${wishlistName}"></h4>
