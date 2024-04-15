@@ -1,7 +1,5 @@
 package org.example.wishywishy.model;
 
-import java.net.URL;
-
 public class Wish {
     private String wishName;
     private double wishPrice;

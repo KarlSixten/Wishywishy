@@ -41,10 +41,8 @@ public class WishyService {
     }
 
     public void deleteWishlist(int wishlistID) {
-
         wishyRepository.deleteWishList(wishlistID);
     }
-
 
     public Wish findWish(int wishID) {
         return wishyRepository.findWish(wishID);

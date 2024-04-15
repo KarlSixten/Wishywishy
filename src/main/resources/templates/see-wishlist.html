@@ -24,8 +24,7 @@
             <th>Navn på ønske</th>
             <th>Link</th>
             <th>Pris</th>
-            <th th:if="${session.user != null} AND ${session.user.username != username}">isReserved</th>
-            <th th:if="${session.user != null} and ${session.user.username == username}">Action</th>
+            <th th:if="${session.user != null} and ${session.user.username == username}"></th>
         </tr>
         </thead>
         <tbody>
@@ -35,9 +34,8 @@
                 <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
             </td>
             <td th:text="${wish.wishPrice} + ',- kr.'">Price</td>
-            <td th:if="${session.user != null} AND ${session.user.username != username}" th:text="${wish.isReserved}">Reserved status</td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
-                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn red">Delete</a>
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/deleteWish'}" class="btn red">Slet</a>
             </td>
             <td th:if="${session.user != null} AND ${session.user.username != username}">
                 <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/togglereserve'}" class="waves-effect waves-light btn" th:classappend="${wish.isReserved} ? 'red' : 'green'">
@@ -46,7 +44,7 @@
                 </a>
             </td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
-                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn blue">Update</a>
+                <a th:href="@{'/' + ${username} + '/' + ${wishlistid} + '/' + ${wish.wishID} + '/updateWish'}" class="btn blue">Opdater</a>
             </td>
         </tr>
         </tbody>

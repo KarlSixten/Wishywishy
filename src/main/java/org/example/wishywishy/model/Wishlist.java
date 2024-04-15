@@ -1,8 +1,5 @@
 package org.example.wishywishy.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Wishlist {
     private int wishlistID;
     private String username;

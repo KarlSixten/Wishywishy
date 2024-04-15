@@ -30,7 +30,7 @@
         <input type="hidden" name="username" th:value="${username}" />
         <input type="hidden" name="wishlistid" th:value="${wishlistid}" />
 
-        <button type="submit" class="btn waves-effect waves-light">create<i class="material-icons right">send</i></button>
+        <button type="submit" class="btn waves-effect waves-light">Tilføj<i class="material-icons right"></i></button>
     </form>
     <form th:action="@{ '/' + ${username} + '/see-wishlist/' + ${wishlistid}}" method="get" style="margin-top: 20px;">
         <button class="btn waves-effect waves-light">Tilbage</button>

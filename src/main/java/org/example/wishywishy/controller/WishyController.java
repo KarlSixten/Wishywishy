@@ -133,11 +133,7 @@ public class WishyController {
 
     @GetMapping("{username}/{wishlistid}/{wishId}/togglereserve")
     public String reserveWish(@PathVariable String username, @PathVariable int wishlistid, @PathVariable int wishId) {
-        if (wishyService.findWish(wishId).isReserved()) {
-            wishyService.toggleReserve(false, wishId);
-        } else {
-            wishyService.toggleReserve(true, wishId);
-        }
+        wishyService.toggleReserve(!wishyService.findWish(wishId).isReserved(), wishId);
         return "redirect:/" + username + "/see-wishlist/" + wishlistid;
     }
 
