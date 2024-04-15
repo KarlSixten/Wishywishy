@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS wish;
+DROP TABLE IF EXISTS wishlist;
+DROP TABLE IF EXISTS users;
+
 DROP SCHEMA IF EXISTS wishywishy;
 CREATE SCHEMA wishywishy;
 USE wishywishy;
