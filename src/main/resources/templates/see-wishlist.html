@@ -31,7 +31,7 @@
         <thead>
         <tr th:if="${!wishlist.isEmpty()}">
             <th>Navn på ønske</th>
-            <th>Link</th>
+            <th></th>
             <th>Pris</th>
             <th th:if="${session.user != null} and ${session.user.username == username}"></th>
         </tr>
@@ -40,7 +40,7 @@
         <tr th:each="wish : ${wishlist}">
             <td th:text="${wish.wishName}">Wish Name</td>
             <td>
-                <a th:href="${wish.url}" th:text="${wish.url}">URL</a>
+                <a th:href="${wish.url}">Link</a>
             </td>
             <td th:text="${wish.wishPrice} + ',- kr.'">Price</td>
             <td th:if="${session.user != null} and ${session.user.username == username}">
