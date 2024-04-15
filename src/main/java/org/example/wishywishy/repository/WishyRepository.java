@@ -286,4 +286,21 @@ public class WishyRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public String getWishlistName(int wishlistid) {
+        String wishlistName = "";
+        String sql = "SELECT * FROM wishlist WHERE wishlistId = (?);";
+        Connection connection = ConnectionManager.getConnection(url, user, password);
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, wishlistid);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                wishlistName = rs.getString("wishlistName");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return wishlistName;
+    }
 }

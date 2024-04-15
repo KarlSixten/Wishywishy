@@ -68,4 +68,8 @@ public class WishyService {
     public List<User> getAllUsers() {
         return wishyRepository.getAllUsers();
     }
+
+    public String getWishlistName(int wishlistid) {
+        return wishyRepository.getWishlistName(wishlistid);
+    }
 }
