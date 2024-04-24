@@ -111,3 +111,4 @@ class WishyRepositoryTest {
         assertTrue(actual);
     }
 }
+//Mockito framework til at oprette mockdatabase
