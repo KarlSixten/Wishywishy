@@ -1,9 +1,11 @@
 # Wishywishy project #
 ## Welcome to our Wishywishy project - a project done at KEA in AP Computer Science ##
 
-** The project is for making a wishlist using Java, Thymeleaf, SpringBoot, HTML, CSS, SQL, Tomcat, HTTP and deploying the web application and the database to Azure **
-** The project is useful for getting a bigger understanding of the technologies listed above **
-** Writing wishlists on a piece of paper or in a word document, is outdated in the modern digital world **
+**The project is for making a wishlist using Java, Thymeleaf, SpringBoot, HTML, CSS, SQL, Tomcat, HTTP and deploying the web application and the database to Azure**  
+
+**The project is useful for getting a bigger understanding of the technologies listed above**  
+
+**Writing wishlists on a piece of paper or in a word document, is outdated in the modern digital world**
 
 ## How to get started with project ## 
 - To get started with the project, simply clone the repository
